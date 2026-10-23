@@ -1,89 +1,37 @@
 package com.example.app
 
-import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.webkit.CookieManager
-import android.webkit.WebChromeClient
-import android.webkit.WebResourceRequest
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.BackHandler
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.viewinterop.AndroidView
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.browser.trusted.TrustedWebActivityIntentBuilder
+import com.google.androidbrowserhelper.trusted.TwaLauncher
 
 class MainActivity : ComponentActivity() {
-    private var webViewRef: WebView? = null
 
-    @SuppressLint("SetJavaScriptEnabled")
+    private lateinit var twaLauncher: TwaLauncher
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            BackHandler(enabled = true) {
-                val currentWebView = webViewRef
-                if (currentWebView?.canGoBack() == true) {
-                    currentWebView.goBack()
-                } else {
-                    finish()
-                }
-            }
 
-            Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                AndroidView(
-                    factory = { context ->
-                        val webView = WebView(context)
-                        webViewRef = webView
+        twaLauncher = TwaLauncher(this)
+        val uri = Uri.parse("https://hojjat.timzo.ir/")
 
-                        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
-
-                        webView.webViewClient = object : WebViewClient() {
-                            override fun shouldOverrideUrlLoading(
-                                view: WebView?,
-                                request: WebResourceRequest?
-                            ): Boolean {
-                                val url = request?.url?.toString() ?: return false
-                                view?.loadUrl(url)
-                                return true
-                            }
-                        }
-
-                        webView.webChromeClient = WebChromeClient()
-
-                        webView.settings.apply {
-                            javaScriptEnabled = true
-                            domStorageEnabled = true
-                            databaseEnabled = true
-                            loadWithOverviewMode = true
-                            useWideViewPort = true
-                            setSupportZoom(true)
-                            setBuiltInZoomControls(false)
-                            displayZoomControls = false
-                            cacheMode = WebSettings.LOAD_DEFAULT
-                            setSaveFormData(true)
-                            mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-                        }
-
-                        val cookieManager = CookieManager.getInstance()
-                        cookieManager.setAcceptCookie(true)
-                        cookieManager.setAcceptThirdPartyCookies(webView, true)
-
-                        webView.loadUrl("https://hojjat.timzo.ir/")
-                        webView
-                    },
-                    modifier = Modifier.padding(innerPadding)
-                )
-            }
+        try {
+            // روش استاندارد و کاملاً ایمن در مستندات رسمی Google
+            twaLauncher.launch(TrustedWebActivityIntentBuilder(uri))
+            finish()
+        } catch (t: Throwable) {
+            // Fallback امن با Custom Tabs
+            CustomTabsIntent.Builder().build().launchUrl(this, uri)
+            finish()
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        CookieManager.getInstance().flush()
+    override fun onDestroy() {
+        if (::twaLauncher.isInitialized) {
+            twaLauncher.destroy()
+        }
+        super.onDestroy()
     }
 }

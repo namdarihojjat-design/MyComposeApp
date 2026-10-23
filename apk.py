@@ -1,78 +1,45 @@
-import pathlib
+import os
 
-def update_project():
-    print("[INFO] Fixing MainActivity.kt syntax error and finalizing session persistence...")
+project_dir = r"C:\Users\p\Desktop\apk"
 
-    main_code = """package com.example.app
+def check_file(path, name):
+    if os.path.exists(path):
+        print(f"[✓] {name} پیدا شد: {path}")
+        return True
+    else:
+        print(f"[❌] {name} یافت نشد! مسیر مورد انتظار: {path}")
+        return False
 
-import android.os.Bundle
-import android.webkit.CookieManager
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.viewinterop.AndroidView
+print("=== شروع بررسی سلامت پروژه TWA ===")
+print(f"مسیر پروژه: {project_dir}\n")
 
-class MainActivity : ComponentActivity() {
-    private var webView: WebView? = null
+# ۱. بررسی فایل‌های اصلی
+manifest_path = os.path.join(project_dir, "app", "src", "main", "AndroidManifest.xml")
+main_activity_path = os.path.join(project_dir, "app", "src", "main", "java", "com", "example", "app", "MainActivity.kt")
+build_gradle_path = os.path.join(project_dir, "app", "build.gradle.kts")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                AndroidView(
-                    factory = { context ->
-                        WebView(context).apply {
-                            webView = this
-                            
-                            // Keep links inside the app's internal WebView
-                            webViewClient = object : WebViewClient() {
-                                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                                    return false
-                                }
-                            }
-                            
-                            settings.apply {
-                                javaScriptEnabled = true
-                                domStorageEnabled = true
-                                databaseEnabled = true
-                                cacheMode = WebSettings.LOAD_DEFAULT
-                                loadWithOverviewMode = true
-                                useWideViewPort = true
-                                setSupportZoom(true)
-                                setSaveFormData(true)
-                            }
-                            
-                            // Enable persistent cookies and storage like Google Chrome
-                            val cookieManager = CookieManager.getInstance()
-                            cookieManager.setAcceptCookie(true)
-                            cookieManager.setAcceptThirdPartyCookies(this, true)
-                            
-                            loadUrl("https://hojjat.timzo.ir/")
-                        }
-                    },
-                    modifier = Modifier.padding(innerPadding)
-                )
-            }
-        }
-    }
+check_file(manifest_path, "AndroidManifest.xml")
+check_file(main_activity_path, "MainActivity.kt")
+check_file(build_gradle_path, "App build.gradle.kts")
 
-    override fun onStop() {
-        super.onStop()
-        // Save cookies immediately when app goes to background
-        CookieManager.getInstance().flush()
-    }
-}
-"""
-    main_path = pathlib.Path('app/src/main/java/com/example/app/MainActivity.kt')
-    main_path.parent.mkdir(parents=True, exist_ok=True)
-    main_path.write_text(main_code, encoding='utf-8')
-    print("[SUCCESS] MainActivity.kt fixed successfully.")
+# ۲. بررسی محتوای MainActivity.kt
+if os.path.exists(main_activity_path):
+    with open(main_activity_path, "r", encoding="utf-8") as f:
+        content = f.read()
+        print("\n--- بررسی کد MainActivity.kt ---")
+        if "TwaLauncher" in content:
+            print("[✓] کلاس TwaLauncher به درستی استفاده شده است.")
+        else:
+            print("[❌] TwaLauncher در کد دیده نشد.")
 
-if __name__ == '__main__':
-    update_project()
+# ۳. بررسی مانیفست
+if os.path.exists(manifest_path):
+    with open(manifest_path, "r", encoding="utf-8") as f:
+        m_content = f.read()
+        print("\n--- بررسی AndroidManifest.xml ---")
+        if 'android.permission.INTERNET' in m_content:
+            print("[✓] دسترسی INTERNET وجود دارد.")
+        else:
+            print("[❌] دسترسی INTERNET در Manifest گم شده است!")
+
+print("\n=== پایان بررسی ===")
