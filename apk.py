@@ -3,7 +3,7 @@ import pathlib
 def update_project():
     print("[INFO] Updating MainActivity.kt and AndroidManifest.xml...")
 
-    # 1. MainActivity.kt (Jetpack Compose + WebView for hojjat.timzo.ir)
+    # 1. MainActivity.kt (WebView code)
     main_code = """package com.example.app
 
 import android.os.Bundle
@@ -41,9 +41,8 @@ class MainActivity : ComponentActivity() {
     main_path = pathlib.Path('app/src/main/java/com/example/app/MainActivity.kt')
     main_path.parent.mkdir(parents=True, exist_ok=True)
     main_path.write_text(main_code, encoding='utf-8')
-    print("[OK] MainActivity.kt updated.")
 
-    # 2. AndroidManifest.xml (Internet permission & icon settings)
+    # 2. AndroidManifest.xml (Without roundIcon to prevent AAPT error)
     manifest_code = """<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -51,7 +50,6 @@ class MainActivity : ComponentActivity() {
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Timzo Hojjat"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar">
         <activity
@@ -68,8 +66,7 @@ class MainActivity : ComponentActivity() {
 """
     manifest_path = pathlib.Path('app/src/main/AndroidManifest.xml')
     manifest_path.write_text(manifest_code, encoding='utf-8')
-    print("[OK] AndroidManifest.xml updated.")
-    print("[SUCCESS] All files are ready! Now run: git add . ; git commit -m \"Update app\" ; git push")
+    print("[SUCCESS] Fixed Manifest (removed missing roundIcon).")
 
 if __name__ == '__main__':
     update_project()
