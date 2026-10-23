@@ -4,7 +4,6 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.browser.trusted.TrustedWebActivityIntentBuilder
 import com.google.androidbrowserhelper.trusted.TwaLauncher
 
 class MainActivity : ComponentActivity() {
@@ -18,11 +17,11 @@ class MainActivity : ComponentActivity() {
         val uri = Uri.parse("https://hojjat.timzo.ir/")
 
         try {
-            // روش استاندارد و کاملاً ایمن در مستندات رسمی Google
-            twaLauncher.launch(TrustedWebActivityIntentBuilder(uri))
+            // روش کاملاً سازگار با کتابخانه برای لانچ مستقیم Uri
+            twaLauncher.launch(uri)
             finish()
         } catch (t: Throwable) {
-            // Fallback امن با Custom Tabs
+            // Fallback امن با Custom Tabs در صورت نبود TWA provider
             CustomTabsIntent.Builder().build().launchUrl(this, uri)
             finish()
         }
