@@ -22,9 +22,9 @@ jobs:
 
       - name: Download Gradle Distribution Manually
         run: |
-          wget https://services.gradle.org/distributions/gradle-8.5-bin.zip -O gradle.zip
+          wget https://services.gradle.org/distributions/gradle-8.7-bin.zip -O gradle.zip
           unzip -q gradle.zip
-          echo "$PWD/gradle-8.5/bin" >> $GITHUB_PATH
+          echo "$PWD/gradle-8.7/bin" >> $GITHUB_PATH
 
       - name: Build Debug APK
         run: gradle :app:assembleDebug
