@@ -1,12 +1,13 @@
 import pathlib
 
 def update_project():
-    print("[INFO] Updating MainActivity.kt and AndroidManifest.xml...")
+    print("[INFO] Updating MainActivity.kt for persistent WebView session & internal browser rendering...")
 
-    # 1. MainActivity.kt (WebView code)
     main_code = """package com.example.app
 
 import android.os.Bundle
+import android.webkit.CookieManager
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
@@ -18,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 
 class MainActivity : ComponentActivity() {
+    private var webView: WebView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -25,9 +28,33 @@ class MainActivity : ComponentActivity() {
                 AndroidView(
                     factory = { context ->
                         WebView(context).apply {
-                            webViewClient = WebViewClient()
-                            settings.javaScriptEnabled = true
-                            settings.domStorageEnabled = true
+                            webView = this
+                            
+                            // Ensure it stays inside the app and doesn't launch external browser
+                            webViewClient = object : WebViewClient() {
+                                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                                    // Load all links inside this same WebView
+                                    return false
+                                }
+                            }
+                            
+                            settings.apply {
+                                javaScriptEnabled = true
+                                domStorageEnabled = true
+                                databaseEnabled = true
+                                cacheMode = WebSettings.LOAD_DEFAULT
+                                loadWithOverviewMode = true
+                                useWideViewPort = true
+                                setSupportZoom(true)
+                                // Enable saving form data
+                                setSaveFormData(true)
+                            }
+                            
+                            // Force-enable cookies and storage persistence like Chrome
+                            val cookieManager = CookieManager.getInstance()
+                            cookieManager.setAcceptCookie(true)
+                            cookieManager.setAcceptThirdPartyCookies(this, true)
+                            
                             loadUrl("https://hojjat.timzo.ir/")
                         }
                     },
@@ -35,38 +62,18 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+
+    override fun onStop() {
+        super.onStop()
+        // Ensure cookies are saved immediately when app goes to background
+        CookieManager.getInstance().flush()
     }
 }
 """
     main_path = pathlib.Path('app/src/main/java/com/example/app/MainActivity.kt')
     main_path.parent.mkdir(parents=True, exist_ok=True)
     main_path.write_text(main_code, encoding='utf-8')
-
-    # 2. AndroidManifest.xml (Without roundIcon to prevent AAPT error)
-    manifest_code = """<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="Timzo Hojjat"
-        android:supportsRtl="true"
-        android:theme="@android:style/Theme.NoTitleBar">
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:configChanges="orientation|screenSize|keyboardHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
-</manifest>
-"""
-    manifest_path = pathlib.Path('app/src/main/AndroidManifest.xml')
-    manifest_path.write_text(manifest_code, encoding='utf-8')
-    print("[SUCCESS] Fixed Manifest (removed missing roundIcon).")
+    print("[SUCCESS] MainActivity.kt updated successfully.")
 
 if __name__ == '__main__':
     update_project()
