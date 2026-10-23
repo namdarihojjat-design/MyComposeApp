@@ -1,64 +1,59 @@
-import os
 import pathlib
-import base64
 
-def fix_everything():
-    base_dir = pathlib.Path.cwd()
-    print("[INFO] Setting up foolproof project structure...")
-
-    # ۱. ساختار پوشه‌ها
-    (base_dir / "gradle" / "wrapper").mkdir(parents=True, exist_ok=True)
-    (base_dir / ".github" / "workflows").mkdir(parents=True, exist_ok=True)
-
-    # ۲. قرار دادن فایل حیاتی gradle-wrapper.jar به صورت بایت‌های استاندارد (برای جلوگیری از خطای 127)
-    # این فایل باینری استاندارد گرادل است
-    jar_path = base_dir / "gradle" / "wrapper" / "gradle-wrapper.jar"
-    if not jar_path.exists():
-        # محتوای باینری استاندارد یک فایل gradle-wrapper.jar سبک
-        # برای اطمینان از صحت، از روش دانلود خودکار گرادل در CI استفاده می‌کنیم تا نیاز به jar هم نباشد!
-        pass
-
-    # ۳. اصلاح نهایی CI Workflow برای استفاده از Gradle مستقیم بدون نیاز به wrapper پیچیده
-    workflow_path = base_dir / ".github" / "workflows" / "android-ci.yml"
-    ci_content = """name: Android CI
-
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: "17"
-
-      - name: Download Gradle Distribution Manually
-        run: |
-          wget https://services.gradle.org/distributions/gradle-8.7-bin.zip -O gradle.zip
-          unzip -q gradle.zip
-          echo "$PWD/gradle-8.7/bin" >> $GITHUB_PATH
-
-      - name: Build Debug APK
-        run: gradle :app:assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+# 1. تنظیمات ریشه پروژه (Root build.gradle.kts)
+root_gradle = """plugins {
+    id("com.android.application") version "8.3.2" apply false
+    id("org.jetbrains.kotlin.android") version "2.0.0" apply false
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0" apply false
+}
 """
-    workflow_path.write_text(ci_content.replace('\r\n', '\n'), encoding='utf-8')
-    print("[SUCCESS] Workflow updated to download and use Gradle directly!")
+pathlib.Path('build.gradle.kts').write_text(root_gradle, encoding='utf-8')
 
-if __name__ == "__main__":
-    fix_everything()
+# 2. تنظیمات ماژول برنامه (app/build.gradle.kts)
+app_gradle = """plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
+}
+
+android {
+    namespace = "com.example.app"
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.example.app"
+        minSdk = 24
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+dependencies {
+    val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
+    implementation(composeBom)
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.activity:activity-compose:1.9.0")
+}
+"""
+
+app_path = pathlib.Path('app/build.gradle.kts')
+app_path.parent.mkdir(parents=True, exist_ok=True)
+app_path.write_text(app_gradle, encoding='utf-8')
+
+print('[SUCCESS] update_compose.py executed successfully: Gradle files updated for Kotlin 2.0 & Compose Compiler plugin.')
