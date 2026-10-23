@@ -25,8 +25,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // مدیریت حرفه‌ای دکمه‌ی Back گوشی:
-            // اگر سایت تاریخچه عقب‌گرد داشت، برمی‌گردد صفحه قبل؛ وگرنه از اپ خارج می‌شود.
             BackHandler(enabled = true) {
                 val currentWebView = webViewRef
                 if (currentWebView?.canGoBack() == true) {
@@ -39,51 +37,44 @@ class MainActivity : ComponentActivity() {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                 AndroidView(
                     factory = { context ->
-                        WebView(context).apply {
-                            webViewRef = this
+                        val webView = WebView(context)
+                        webViewRef = webView
 
-                            // فعال‌سازی شتاب‌دهنده سخت‌افزاری برای روانی کامل و بدون لگ اسکرول‌ها
-                            setLayerType(View.LAYER_TYPE_HARDWARE, null)
+                        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
 
-                            // استفاده از متد استاندارد و غیرمنسوخ WebResourceRequest برای مدیریت لینک‌ها داخل خود اپ
-                            webViewClient = object : WebViewClient() {
-                                override fun shouldOverrideUrlLoading(
-                                    view: WebView?,
-                                    request: WebResourceRequest?
-                                ): Boolean {
-                                    val url = request?.url?.toString() ?: return false
-                                    view?.loadUrl(url)
-                                    return true
-                                }
+                        webView.webViewClient = object : WebViewClient() {
+                            override fun shouldOverrideUrlLoading(
+                                view: WebView?,
+                                request: WebResourceRequest?
+                            ): Boolean {
+                                val url = request?.url?.toString() ?: return false
+                                view?.loadUrl(url)
+                                return true
                             }
-
-                            webChromeClient = WebChromeClient()
-
-                            settings.apply {
-                                javaScriptEnabled = true
-                                domStorageEnabled = true
-                                databaseEnabled = true
-                                
-                                loadWithOverviewMode = true
-                                useWideViewPort = true
-                                setSupportZoom(true)
-                                setBuiltInZoomControls(false)
-                                displayZoomControls = false
-                                
-                                cacheMode = WebSettings.LOAD_DEFAULT
-                                setSaveFormData(true)
-                                mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-                            }
-
-                            // مدیریت فوق‌العاده کوکی‌ها و حفظ دائمی سشن‌ها
-                            CookieManager.getInstance().apply {
-                                setAcceptCookie(true)
-                                setAcceptThirdPartyCookies(this@WebView, true)
-                            }
-
-                            // لود اولیه سایت اصلی با سرعت بالا
-                            loadUrl("https://hojjat.timzo.ir/")
                         }
+
+                        webView.webChromeClient = WebChromeClient()
+
+                        webView.settings.apply {
+                            javaScriptEnabled = true
+                            domStorageEnabled = true
+                            databaseEnabled = true
+                            loadWithOverviewMode = true
+                            useWideViewPort = true
+                            setSupportZoom(true)
+                            setBuiltInZoomControls(false)
+                            displayZoomControls = false
+                            cacheMode = WebSettings.LOAD_DEFAULT
+                            setSaveFormData(true)
+                            mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+                        }
+
+                        val cookieManager = CookieManager.getInstance()
+                        cookieManager.setAcceptCookie(true)
+                        cookieManager.setAcceptThirdPartyCookies(webView, true)
+
+                        webView.loadUrl("https://hojjat.timzo.ir/")
+                        webView
                     },
                     modifier = Modifier.padding(innerPadding)
                 )
