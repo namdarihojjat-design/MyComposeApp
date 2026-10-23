@@ -1,59 +1,75 @@
 import pathlib
 
-# 1. تنظیمات ریشه پروژه (Root build.gradle.kts)
-root_gradle = """plugins {
-    id("com.android.application") version "8.3.2" apply false
-    id("org.jetbrains.kotlin.android") version "2.0.0" apply false
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0" apply false
+def update_project():
+    print("[INFO] Updating MainActivity.kt and AndroidManifest.xml...")
+
+    # 1. MainActivity.kt (Jetpack Compose + WebView for hojjat.timzo.ir)
+    main_code = """package com.example.app
+
+import android.os.Bundle
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.AndroidView
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                AndroidView(
+                    factory = { context ->
+                        WebView(context).apply {
+                            webViewClient = WebViewClient()
+                            settings.javaScriptEnabled = true
+                            settings.domStorageEnabled = true
+                            loadUrl("https://hojjat.timzo.ir/")
+                        }
+                    },
+                    modifier = Modifier.padding(innerPadding)
+                )
+            }
+        }
+    }
 }
 """
-pathlib.Path('build.gradle.kts').write_text(root_gradle, encoding='utf-8')
+    main_path = pathlib.Path('app/src/main/java/com/example/app/MainActivity.kt')
+    main_path.parent.mkdir(parents=True, exist_ok=True)
+    main_path.write_text(main_code, encoding='utf-8')
+    print("[OK] MainActivity.kt updated.")
 
-# 2. تنظیمات ماژول برنامه (app/build.gradle.kts)
-app_gradle = """plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose")
-}
+    # 2. AndroidManifest.xml (Internet permission & icon settings)
+    manifest_code = """<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
 
-android {
-    namespace = "com.example.app"
-    compileSdk = 34
-
-    defaultConfig {
-        applicationId = "com.example.app"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-    }
-
-    buildFeatures {
-        compose = true
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-}
-
-dependencies {
-    val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
-    implementation(composeBom)
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.activity:activity-compose:1.9.0")
-}
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Timzo Hojjat"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.NoTitleBar">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
 """
+    manifest_path = pathlib.Path('app/src/main/AndroidManifest.xml')
+    manifest_path.write_text(manifest_code, encoding='utf-8')
+    print("[OK] AndroidManifest.xml updated.")
+    print("[SUCCESS] All files are ready! Now run: git add . ; git commit -m \"Update app\" ; git push")
 
-app_path = pathlib.Path('app/build.gradle.kts')
-app_path.parent.mkdir(parents=True, exist_ok=True)
-app_path.write_text(app_gradle, encoding='utf-8')
-
-print('[SUCCESS] update_compose.py executed successfully: Gradle files updated for Kotlin 2.0 & Compose Compiler plugin.')
+if __name__ == '__main__':
+    update_project()
