@@ -25,10 +25,9 @@ class MainActivity : ComponentActivity() {
                         WebView(context).apply {
                             webView = this
                             
-                            // Ensure it stays inside the app and doesn't launch external browser
+                            // Keep links inside the app's internal WebView
                             webViewClient = object : WebViewClient() {
                                 override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                                    // Load all links inside this same WebView
                                     return false
                                 }
                             }
@@ -41,11 +40,10 @@ class MainActivity : ComponentActivity() {
                                 loadWithOverviewMode = true
                                 useWideViewPort = true
                                 setSupportZoom(true)
-                                // Enable saving form data
                                 setSaveFormData(true)
                             }
                             
-                            // Force-enable cookies and storage persistence like Chrome
+                            // Enable persistent cookies and storage like Google Chrome
                             val cookieManager = CookieManager.getInstance()
                             cookieManager.setAcceptCookie(true)
                             cookieManager.setAcceptThirdPartyCookies(this, true)
@@ -57,10 +55,11 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
 
     override fun onStop() {
         super.onStop()
-        // Ensure cookies are saved immediately when app goes to background
+        // Save cookies immediately when app goes to background
         CookieManager.getInstance().flush()
     }
 }

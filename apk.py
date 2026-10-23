@@ -1,7 +1,7 @@
 import pathlib
 
 def update_project():
-    print("[INFO] Updating MainActivity.kt for persistent WebView session & internal browser rendering...")
+    print("[INFO] Fixing MainActivity.kt syntax error and finalizing session persistence...")
 
     main_code = """package com.example.app
 
@@ -30,10 +30,9 @@ class MainActivity : ComponentActivity() {
                         WebView(context).apply {
                             webView = this
                             
-                            // Ensure it stays inside the app and doesn't launch external browser
+                            // Keep links inside the app's internal WebView
                             webViewClient = object : WebViewClient() {
                                 override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                                    // Load all links inside this same WebView
                                     return false
                                 }
                             }
@@ -46,11 +45,10 @@ class MainActivity : ComponentActivity() {
                                 loadWithOverviewMode = true
                                 useWideViewPort = true
                                 setSupportZoom(true)
-                                // Enable saving form data
                                 setSaveFormData(true)
                             }
                             
-                            // Force-enable cookies and storage persistence like Chrome
+                            // Enable persistent cookies and storage like Google Chrome
                             val cookieManager = CookieManager.getInstance()
                             cookieManager.setAcceptCookie(true)
                             cookieManager.setAcceptThirdPartyCookies(this, true)
@@ -62,10 +60,11 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+    }
 
     override fun onStop() {
         super.onStop()
-        // Ensure cookies are saved immediately when app goes to background
+        // Save cookies immediately when app goes to background
         CookieManager.getInstance().flush()
     }
 }
@@ -73,7 +72,7 @@ class MainActivity : ComponentActivity() {
     main_path = pathlib.Path('app/src/main/java/com/example/app/MainActivity.kt')
     main_path.parent.mkdir(parents=True, exist_ok=True)
     main_path.write_text(main_code, encoding='utf-8')
-    print("[SUCCESS] MainActivity.kt updated successfully.")
+    print("[SUCCESS] MainActivity.kt fixed successfully.")
 
 if __name__ == '__main__':
     update_project()
