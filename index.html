@@ -1,0 +1,3193 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0A152F">
+    <meta name="description"
+        content="مسجد آبادی — اپلیکیشن موبایل مسجد روستا؛ کمک مالی، نذورات، اطلاع‌رسانی زنده، پیام محرمانه و دنیای کودکان. پیشنهاد ساخت از گروه نرم‌افزاری تیمزو.">
+    <meta name="author" content="Timzo — تیمزو">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="مسجد آبادی — مسجدی ۲۴ ساعته در جیب اهالی">
+    <meta property="og:description" content="پیشنهاد ساخت اپلیکیشن موبایل مسجد روستا — با برند تیمزو">
+    <meta property="og:image" content="data/og-image.jpg">
+    <meta property="og:locale" content="fa_IR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="مسجد آبادی — مسجدی ۲۴ ساعته در جیب اهالی">
+    <meta name="twitter:image" content="data/og-image.jpg">
+
+    <title>مسجد آبادی — مسجدی ۲۴ ساعته در جیب اهالی | تیمزو</title>
+
+    <link rel="icon" type="image/png" href="data/favicon.png">
+    <link rel="apple-touch-icon" href="data/favicon.png">
+
+    <!-- ====== FONTS ====== -->
+    <link rel="stylesheet" href="https://fonts.timzo.ir/css/nahid.css">
+    <link rel="stylesheet" href="https://fonts.timzo.ir/css/noto-naskh.css">
+    <link rel="preconnect" href="https://fonts.timzo.ir" crossorigin>
+
+    <style>
+        /* ================================================================
+   1. RESET & BASE
+   ================================================================ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%
+        }
+
+        body {
+            font-family: 'Noto Naskh Arabic', 'Nahid', serif;
+            background: #FAF7F0;
+            color: #0F172A;
+            line-height: 1.85;
+            font-size: 17px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: inherit
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Nahid', 'Noto Naskh Arabic', serif;
+            font-weight: 700;
+            line-height: 1.35;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            margin-bottom: 1rem
+        }
+
+        /* ================================================================
+   2. DESIGN TOKENS
+   ================================================================ */
+        :root {
+            /* Turquoise palette */
+            --turq-50: #E6F7F7;
+            --turq-100: #CCEFEF;
+            --turq-200: #99DFDF;
+            --turq-300: #66CFCF;
+            --turq-400: #33BFBF;
+            --turq-500: #00AFAF;
+            --turq-600: #008C8C;
+            --turq-700: #006A6A;
+            --turq-800: #004848;
+            --turq-900: #002626;
+
+            /* Lapis palette */
+            --lapis-50: #EEF2FF;
+            --lapis-100: #DCE3FF;
+            --lapis-300: #7C8FD9;
+            --lapis-500: #1E3A8A;
+            --lapis-600: #182F6F;
+            --lapis-700: #15256B;
+            --lapis-800: #0F1B4D;
+            --lapis-900: #0A152F;
+
+            /* Gold */
+            --gold-100: #FBF1D0;
+            --gold-200: #F7E4A0;
+            --gold-300: #F4D77E;
+            --gold-400: #E8C158;
+            --gold-500: #D4AF37;
+            --gold-600: #B8942B;
+            --gold-700: #8E7020;
+
+            /* Neutrals */
+            --cream: #FAF7F0;
+            --cream-2: #F4EFE5;
+            --ink: #0F172A;
+            --ink-soft: #334155;
+            --ink-muted: #64748B;
+            --line: #E2E8F0;
+            --white: #FFFFFF;
+
+            /* Effects */
+            --shadow-sm: 0 1px 2px rgba(15, 23, 42, .05);
+            --shadow-md: 0 4px 16px rgba(15, 23, 42, .08);
+            --shadow-lg: 0 12px 40px rgba(15, 23, 42, .12);
+            --shadow-xl: 0 24px 64px rgba(15, 23, 42, .18);
+            --shadow-gold: 0 12px 40px rgba(212, 175, 55, .35);
+            --shadow-turq: 0 16px 48px rgba(0, 175, 175, .28);
+
+            --grad-gold: linear-gradient(135deg, #F4D77E 0%, #D4AF37 50%, #B8942B 100%);
+            --grad-turq: linear-gradient(135deg, #00AFAF 0%, #1E3A8A 100%);
+            --grad-hero: radial-gradient(ellipse at top right, #0F1B4D 0%, #0A152F 55%, #050B1A 100%);
+
+            --radius-sm: 10px;
+            --radius: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --radius-2xl: 48px;
+
+            --ease: cubic-bezier(.2, .7, .2, 1);
+            --ease-out: cubic-bezier(0, .6, .3, 1);
+
+            --container: 1200px;
+            --nav-h: 72px;
+        }
+
+        /* ================================================================
+   3. SCROLL PROGRESS BAR
+   ================================================================ */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #F4D77E, #D4AF37, #00AFAF, #1E3A8A);
+            z-index: 9999;
+            transition: width .08s linear;
+            box-shadow: 0 0 12px rgba(212, 175, 55, .7);
+        }
+
+        /* ================================================================
+   4. NAVBAR
+   ================================================================ */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: var(--nav-h);
+            display: flex;
+            align-items: center;
+            background: rgba(10, 21, 47, .75);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(244, 215, 126, .12);
+            transition: background .3s var(--ease), box-shadow .3s var(--ease);
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 21, 47, .95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .3);
+        }
+
+        .nav-inner {
+            max-width: var(--container);
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            font-family: 'Nahid', serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -.5px;
+        }
+
+        .brand-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--grad-gold);
+            display: grid;
+            place-items: center;
+            box-shadow: 0 4px 14px rgba(212, 175, 55, .5);
+            transition: transform .4s var(--ease);
+        }
+
+        .brand:hover .brand-mark {
+            transform: rotate(-8deg) scale(1.05)
+        }
+
+        .brand-mark svg {
+            width: 20px;
+            height: 20px;
+            color: #0A152F
+        }
+
+        .brand small {
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: .7rem;
+            font-weight: 400;
+            color: rgba(244, 215, 126, .7);
+            margin-right: 6px;
+            letter-spacing: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, .82);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: .9rem;
+            font-weight: 500;
+            transition: all .25s var(--ease);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #F4D77E;
+            background: rgba(244, 215, 126, .08);
+        }
+
+        .nav-cta {
+            padding: 10px 20px !important;
+            background: var(--grad-gold) !important;
+            color: #0A152F !important;
+            font-weight: 700 !important;
+            border-radius: 12px !important;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, .4);
+            transition: all .3s var(--ease) !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(212, 175, 55, .55) !important;
+            background: var(--grad-gold) !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            color: #fff;
+            background: rgba(255, 255, 255, .08);
+            align-items: center;
+            justify-content: center;
+            transition: background .2s;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255, 255, 255, .15)
+        }
+
+        /* ================================================================
+   5. CONTAINER & SECTIONS
+   ================================================================ */
+        .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 96px 0;
+            position: relative;
+        }
+
+        .section-sm {
+            padding: 64px 0
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(0, 175, 175, .1);
+            color: var(--turq-700);
+            border: 1px solid rgba(0, 175, 175, .2);
+            border-radius: 99px;
+            font-size: .82rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+            letter-spacing: .2px;
+        }
+
+        .eyebrow.gold {
+            background: rgba(212, 175, 55, .12);
+            color: var(--gold-700);
+            border-color: rgba(212, 175, 55, .3);
+        }
+
+        .eyebrow.light {
+            background: rgba(244, 215, 126, .12);
+            color: var(--gold-300);
+            border-color: rgba(244, 215, 126, .25);
+        }
+
+        .eyebrow svg {
+            width: 14px;
+            height: 14px
+        }
+
+        .section-title {
+            font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--ink);
+            letter-spacing: -1px;
+        }
+
+        .section-title .accent {
+            background: var(--grad-gold);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-lead {
+            font-size: 1.08rem;
+            color: var(--ink-soft);
+            max-width: 780px;
+            margin-bottom: 48px;
+            line-height: 2;
+        }
+
+        /* ================================================================
+   6. HERO
+   ================================================================ */
+        .hero {
+            position: relative;
+            background: var(--grad-hero);
+            color: #fff;
+            padding: 80px 0 96px;
+            overflow: hidden;
+            min-height: calc(100vh - var(--nav-h));
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(0, 175, 175, .18) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, .14) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(30, 58, 138, .4) 0%, transparent 60%);
+            animation: bgShift 20s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23F4D77E' stroke-width='.6' opacity='.14'%3E%3Cpath d='M40 0 L80 40 L40 80 L0 40 Z'/%3E%3Ccircle cx='40' cy='40' r='16'/%3E%3C/g%3E%3C/svg%3E");
+            opacity: .5;
+            pointer-events: none;
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 80%);
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 64px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-content {
+            max-width: 640px
+        }
+
+        .hero-title {
+            font-size: clamp(2.4rem, 6vw, 4.2rem);
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        .hero-title .line-1 {
+            display: block;
+            color: #fff
+        }
+
+        .hero-title .line-2 {
+            display: block;
+            background: linear-gradient(135deg, #F4D77E 0%, #D4AF37 40%, #F4D77E 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 1.6vw, 1.2rem);
+            color: rgba(255, 255, 255, .82);
+            line-height: 2;
+            margin-bottom: 14px;
+            max-width: 560px;
+        }
+
+        .hero-sub strong {
+            color: #F4D77E;
+            font-weight: 700
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 28px 0 32px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(244, 215, 126, .22);
+            border-radius: 99px;
+            font-size: .85rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, .9);
+            backdrop-filter: blur(10px);
+            transition: all .3s var(--ease);
+        }
+
+        .chip:hover {
+            background: rgba(244, 215, 126, .14);
+            border-color: rgba(244, 215, 126, .5);
+            transform: translateY(-2px);
+        }
+
+        .chip svg {
+            width: 14px;
+            height: 14px;
+            color: #F4D77E;
+            flex-shrink: 0
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-size: .98rem;
+            font-weight: 700;
+            font-family: 'Nahid', serif;
+            transition: all .3s var(--ease);
+            white-space: nowrap;
+            letter-spacing: -.3px;
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            transition: transform .3s var(--ease)
+        }
+
+        .btn-primary {
+            background: var(--grad-gold);
+            color: #0A152F;
+            box-shadow: 0 10px 32px rgba(212, 175, 55, .45);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 44px rgba(212, 175, 55, .6);
+        }
+
+        .btn-primary:hover svg {
+            transform: translateX(-4px)
+        }
+
+        .btn-ghost {
+            background: rgba(255, 255, 255, .06);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .2);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, .12);
+            border-color: rgba(244, 215, 126, .5);
+            transform: translateY(-3px);
+        }
+
+        /* Hero preview */
+        .hero-preview {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+        }
+
+        .preview-frame {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            aspect-ratio: 1/1;
+            border-radius: 36px;
+            overflow: hidden;
+            background:
+                linear-gradient(135deg, rgba(0, 175, 175, .3), rgba(30, 58, 138, .4)),
+                radial-gradient(circle at 30% 30%, rgba(244, 215, 126, .3), transparent 60%);
+            box-shadow:
+                0 0 0 1px rgba(244, 215, 126, .35),
+                0 0 0 8px rgba(244, 215, 126, .06),
+                0 40px 80px rgba(0, 0, 0, .5),
+                0 0 100px rgba(0, 175, 175, .25);
+            animation: floatY 6s ease-in-out infinite;
+            transform: rotateY(-6deg) rotateX(3deg);
+            transition: transform .6s var(--ease);
+        }
+
+        .preview-frame:hover {
+            transform: rotateY(0) rotateX(0) scale(1.02)
+        }
+
+        .preview-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 36px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .preview-frame .preview-fallback {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: #F4D77E;
+            z-index: 0;
+            padding: 24px;
+            text-align: center;
+            font-family: 'Nahid', serif;
+        }
+
+        .preview-fallback svg {
+            width: 64px;
+            height: 64px;
+            opacity: .8
+        }
+
+        .preview-fallback span {
+            font-size: .9rem;
+            opacity: .7;
+            font-family: 'Noto Naskh Arabic', serif
+        }
+
+        /* Floating decorations around preview */
+        .float-badge {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: rgba(10, 21, 47, .85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(244, 215, 126, .3);
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
+            font-size: .82rem;
+            font-weight: 600;
+            color: #fff;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .float-badge svg {
+            width: 16px;
+            height: 16px;
+            color: #F4D77E;
+            flex-shrink: 0
+        }
+
+        .float-badge.b1 {
+            top: 6%;
+            left: -6%;
+            animation: floatY 5s ease-in-out infinite .3s;
+        }
+
+        .float-badge.b2 {
+            bottom: 14%;
+            right: -8%;
+            animation: floatY 6s ease-in-out infinite 1s;
+        }
+
+        .float-badge.b3 {
+            bottom: -3%;
+            left: 12%;
+            animation: floatY 7s ease-in-out infinite 1.5s;
+        }
+
+        .float-badge small {
+            color: #F4D77E;
+            font-family: 'Noto Naskh Arabic', serif;
+            font-weight: 700
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(244, 215, 126, .7);
+            font-size: .75rem;
+            z-index: 3;
+            animation: fadeInDown 2s ease-in-out infinite;
+        }
+
+        .scroll-hint svg {
+            width: 20px;
+            height: 20px
+        }
+
+        /* ================================================================
+   7. REVEAL ANIMATIONS
+   ================================================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity .8s var(--ease), transform .8s var(--ease);
+            will-change: opacity, transform;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .reveal-delay-1 {
+            transition-delay: .08s
+        }
+
+        .reveal-delay-2 {
+            transition-delay: .16s
+        }
+
+        .reveal-delay-3 {
+            transition-delay: .24s
+        }
+
+        .reveal-delay-4 {
+            transition-delay: .32s
+        }
+
+        .reveal-delay-5 {
+            transition-delay: .4s
+        }
+
+        /* ================================================================
+   8. INTRO / THREE POINTS
+   ================================================================ */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .point-card {
+            position: relative;
+            padding: 36px 28px;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all .4s var(--ease);
+            overflow: hidden;
+        }
+
+        .point-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--grad-gold);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform .5s var(--ease);
+        }
+
+        .point-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(212, 175, 55, .4);
+        }
+
+        .point-card:hover::before {
+            transform: scaleX(1)
+        }
+
+        .point-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--lapis-500), var(--turq-600));
+            color: #F4D77E;
+            font-family: 'Nahid', serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(30, 58, 138, .3);
+        }
+
+        .point-card p {
+            color: var(--ink-soft);
+            font-size: .98rem;
+            line-height: 1.95;
+            margin: 0;
+        }
+
+        /* ================================================================
+   9. WHAT-IS-IT SECTION
+   ================================================================ */
+        .section-what {
+            background: linear-gradient(180deg, #fff 0%, var(--cream) 100%);
+        }
+
+        .what-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .what-text p {
+            font-size: 1.05rem;
+            line-height: 2.1;
+            color: var(--ink-soft);
+        }
+
+        .what-text p:first-of-type::first-letter {
+            font-family: 'Nahid', serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            float: right;
+            line-height: 1;
+            margin: 6px 0 0 14px;
+            color: var(--turq-600);
+        }
+
+        .what-text .highlight {
+            color: var(--turq-700);
+            font-weight: 700;
+            background: linear-gradient(transparent 65%, rgba(0, 175, 175, .2) 65%);
+            padding: 0 2px;
+        }
+
+        .what-text .highlight-gold {
+            color: var(--gold-700);
+            font-weight: 700;
+            background: linear-gradient(transparent 65%, rgba(244, 215, 126, .45) 65%);
+            padding: 0 2px;
+        }
+
+        .five-pillars {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .pillar {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px 22px;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            transition: all .3s var(--ease);
+        }
+
+        .pillar:hover {
+            border-color: var(--turq-300);
+            background: var(--turq-50);
+            transform: translateX(-4px);
+        }
+
+        .pillar-icon {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--turq-100), var(--turq-200));
+            display: grid;
+            place-items: center;
+            color: var(--turq-700);
+            transition: all .3s var(--ease);
+        }
+
+        .pillar:hover .pillar-icon {
+            background: var(--grad-turq);
+            color: #F4D77E;
+            transform: scale(1.06) rotate(-4deg);
+        }
+
+        .pillar-icon svg {
+            width: 22px;
+            height: 22px
+        }
+
+        .pillar-text strong {
+            display: block;
+            font-family: 'Nahid', serif;
+            font-size: 1.02rem;
+            color: var(--ink);
+            margin-bottom: 2px;
+        }
+
+        .pillar-text span {
+            display: block;
+            font-size: .88rem;
+            color: var(--ink-muted);
+            line-height: 1.7;
+        }
+
+        /* ================================================================
+   10. DESIGN SECTION (Dark)
+   ================================================================ */
+        .section-design {
+            background: var(--grad-hero);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-design::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23F4D77E' stroke-width='.5' opacity='.1'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .section-design .container {
+            position: relative;
+            z-index: 2
+        }
+
+        .section-design .section-title {
+            color: #fff
+        }
+
+        .section-design .section-title .accent {
+            background: linear-gradient(135deg, #F4D77E, #D4AF37, #F4D77E);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+
+        .section-design .section-lead {
+            color: rgba(255, 255, 255, .78)
+        }
+
+        .design-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        .design-card {
+            padding: 32px 28px;
+            background: rgba(255, 255, 255, .045);
+            border: 1px solid rgba(244, 215, 126, .15);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(12px);
+            transition: all .4s var(--ease);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .design-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 175, 175, .1), transparent 60%);
+            opacity: 0;
+            transition: opacity .4s;
+            pointer-events: none;
+        }
+
+        .design-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(244, 215, 126, .45);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .4), 0 0 40px rgba(0, 175, 175, .15);
+        }
+
+        .design-card:hover::after {
+            opacity: 1
+        }
+
+        .design-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(244, 215, 126, .2), rgba(0, 175, 175, .2));
+            border: 1px solid rgba(244, 215, 126, .3);
+            display: grid;
+            place-items: center;
+            color: #F4D77E;
+            margin-bottom: 20px;
+            transition: all .4s var(--ease);
+        }
+
+        .design-card:hover .design-icon {
+            transform: rotate(-8deg) scale(1.1);
+            background: var(--grad-gold);
+            color: #0A152F;
+        }
+
+        .design-icon svg {
+            width: 24px;
+            height: 24px
+        }
+
+        .design-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            color: #F4D77E;
+            font-weight: 700;
+        }
+
+        .design-card p {
+            color: rgba(255, 255, 255, .78);
+            font-size: .95rem;
+            line-height: 1.95;
+            margin: 0;
+        }
+
+        .design-quote {
+            margin-top: 40px;
+            padding: 32px 36px;
+            background: linear-gradient(135deg, rgba(244, 215, 126, .08), rgba(0, 175, 175, .06));
+            border: 1px solid rgba(244, 215, 126, .25);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            position: relative;
+        }
+
+        .design-quote p {
+            font-family: 'Nahid', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, .92);
+            line-height: 1.9;
+            margin: 0;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .design-quote p::before,
+        .design-quote p::after {
+            content: '"';
+            color: #F4D77E;
+            font-size: 2rem;
+            font-family: serif;
+            opacity: .6;
+            margin: 0 4px;
+        }
+
+        /* ================================================================
+   11. PAYMENT SECTION
+   ================================================================ */
+        .section-pay {
+            background: var(--cream)
+        }
+
+        .pay-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            margin-bottom: 56px;
+        }
+
+        .pay-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            position: relative;
+        }
+
+        .pay-steps::before {
+            content: '';
+            position: absolute;
+            top: 38px;
+            right: 8%;
+            left: 8%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--turq-300), var(--gold-400), var(--turq-300), transparent);
+            z-index: 0;
+        }
+
+        .pay-step {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 0 12px;
+        }
+
+        .pay-step-icon {
+            width: 76px;
+            height: 76px;
+            border-radius: 24px;
+            background: #fff;
+            border: 2px solid var(--turq-200);
+            display: grid;
+            place-items: center;
+            margin: 0 auto 18px;
+            color: var(--turq-700);
+            box-shadow: 0 12px 32px rgba(0, 175, 175, .15);
+            transition: all .4s var(--ease);
+        }
+
+        .pay-step:hover .pay-step-icon {
+            transform: translateY(-6px) scale(1.05);
+            border-color: var(--gold-400);
+            color: var(--gold-600);
+            box-shadow: 0 20px 44px rgba(212, 175, 55, .3);
+        }
+
+        .pay-step-icon svg {
+            width: 32px;
+            height: 32px
+        }
+
+        .pay-step h4 {
+            font-size: 1.05rem;
+            color: var(--ink);
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .pay-step p {
+            font-size: .9rem;
+            color: var(--ink-soft);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .pay-note {
+            margin-top: 48px;
+            padding: 28px 32px;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-right: 4px solid var(--gold-400);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pay-note p {
+            font-size: 1rem;
+            color: var(--ink-soft);
+            line-height: 2;
+            margin: 0;
+        }
+
+        .pay-note strong {
+            color: var(--gold-700)
+        }
+
+        /* ================================================================
+   12. NON-CASH SECTION
+   ================================================================ */
+        .section-noncash {
+            background: #fff
+        }
+
+        .toolbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .tool-card {
+            padding: 36px 32px;
+            background: linear-gradient(135deg, #FAF7F0, #fff);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            position: relative;
+            overflow: hidden;
+            transition: all .4s var(--ease);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: -40px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, .15), transparent 70%);
+            transition: all .6s var(--ease);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold-300);
+            box-shadow: 0 20px 48px rgba(212, 175, 55, .18);
+        }
+
+        .tool-card:hover::before {
+            transform: scale(2);
+            background: radial-gradient(circle, rgba(212, 175, 55, .25), transparent 70%);
+        }
+
+        .tool-num {
+            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--grad-gold);
+            color: #0A152F;
+            font-family: 'Nahid', serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 16px rgba(212, 175, 55, .35);
+        }
+
+        .tool-card h3 {
+            font-size: 1.2rem;
+            color: var(--ink);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .tool-card p {
+            color: var(--ink-soft);
+            font-size: .98rem;
+            line-height: 2;
+            margin: 0;
+        }
+
+        .tool-card .example {
+            display: block;
+            margin-top: 14px;
+            padding: 14px 16px;
+            background: var(--cream-2);
+            border-radius: 10px;
+            font-size: .88rem;
+            color: var(--ink);
+            line-height: 1.8;
+            border-right: 3px solid var(--turq-500);
+        }
+
+        .tool-card .example strong {
+            color: var(--turq-700)
+        }
+
+        .encourage-box {
+            margin-top: 36px;
+            padding: 36px 40px;
+            background: linear-gradient(135deg, var(--lapis-500), var(--turq-700));
+            border-radius: var(--radius-lg);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(30, 58, 138, .3);
+        }
+
+        .encourage-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23F4D77E' stroke-width='.6' opacity='.15'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .encourage-box>* {
+            position: relative;
+            z-index: 1
+        }
+
+        .encourage-box h3 {
+            font-size: 1.3rem;
+            color: #F4D77E;
+            margin-bottom: 14px;
+        }
+
+        .encourage-box p {
+            font-size: 1rem;
+            line-height: 2;
+            color: rgba(255, 255, 255, .92);
+            margin-bottom: 16px;
+        }
+
+        .encourage-box .examples {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .encourage-box .examples span {
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 10px;
+            font-size: .9rem;
+            border: 1px solid rgba(244, 215, 126, .2);
+            color: rgba(255, 255, 255, .95);
+        }
+
+        /* ================================================================
+   13. ANNOUNCEMENTS + PRIVATE
+   ================================================================ */
+        .section-comm {
+            background: var(--cream)
+        }
+
+        .comm-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            margin-top: 40px;
+        }
+
+        .comm-card {
+            padding: 40px 36px;
+            border-radius: var(--radius-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comm-card.light {
+            background: #fff;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .comm-card.dark {
+            background: linear-gradient(135deg, var(--lapis-900), var(--lapis-700));
+            color: #fff;
+            box-shadow: 0 20px 60px rgba(10, 21, 47, .3);
+        }
+
+        .comm-card.dark::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23F4D77E' stroke-width='.5' opacity='.15'%3E%3Ccircle cx='20' cy='20' r='12'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .comm-card.dark>* {
+            position: relative;
+            z-index: 1
+        }
+
+        .comm-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .comm-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+
+        .comm-card.light .comm-icon {
+            background: var(--turq-100);
+            color: var(--turq-700);
+        }
+
+        .comm-card.dark .comm-icon {
+            background: rgba(244, 215, 126, .15);
+            border: 1px solid rgba(244, 215, 126, .3);
+            color: #F4D77E;
+        }
+
+        .comm-icon svg {
+            width: 26px;
+            height: 26px
+        }
+
+        .comm-card h3 {
+            font-size: 1.3rem;
+            color: inherit;
+            font-weight: 700;
+        }
+
+        .comm-card p {
+            font-size: .98rem;
+            line-height: 2;
+            color: inherit;
+            opacity: .85;
+            margin-bottom: 16px;
+        }
+
+        .comm-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .comm-list li {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-size: .94rem;
+            line-height: 1.85;
+        }
+
+        .comm-list li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--turq-500);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            margin-top: 4px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+            background-size: 12px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .comm-card.dark .comm-list li::before {
+            background-color: #F4D77E;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230A152F' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+        }
+
+        .comm-footer {
+            margin-top: 24px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: .92rem;
+            line-height: 1.85;
+        }
+
+        .comm-card.light .comm-footer {
+            background: var(--turq-50);
+            color: var(--turq-800);
+            border-right: 3px solid var(--turq-500);
+        }
+
+        .comm-card.dark .comm-footer {
+            background: rgba(244, 215, 126, .08);
+            color: #F4D77E;
+            border-right: 3px solid #F4D77E;
+        }
+
+        /* ================================================================
+   14. KIDS SECTION
+   ================================================================ */
+        .section-kids {
+            background: linear-gradient(180deg, #FFF9EC 0%, #FAF7F0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-kids::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 175, 175, .1), transparent 70%);
+            border-radius: 50%;
+            animation: floatY 10s ease-in-out infinite;
+        }
+
+        .section-kids::after {
+            content: '';
+            position: absolute;
+            bottom: 40px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(244, 215, 126, .18), transparent 70%);
+            border-radius: 50%;
+            animation: floatY 12s ease-in-out infinite reverse;
+        }
+
+        .section-kids .container {
+            position: relative;
+            z-index: 1
+        }
+
+        .kids-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .kid-card {
+            padding: 36px 28px;
+            background: #fff;
+            border-radius: var(--radius-lg);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            transition: all .5s var(--ease);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .kid-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, #F4D77E, #00AFAF, #1E3A8A, #F4D77E);
+            background-size: 300% 300%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity .4s;
+            animation: borderShift 4s linear infinite;
+        }
+
+        .kid-card:hover {
+            transform: translateY(-8px) scale(1.02)
+        }
+
+        .kid-card:hover::before {
+            opacity: 1
+        }
+
+        .kid-icon {
+            width: 84px;
+            height: 84px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #FEF3D2, #FCE9B0);
+            display: grid;
+            place-items: center;
+            margin: 0 auto 22px;
+            color: var(--gold-700);
+            box-shadow: 0 10px 28px rgba(244, 215, 126, .4);
+            transition: all .5s var(--ease);
+        }
+
+        .kid-card:hover .kid-icon {
+            transform: rotate(-10deg) scale(1.1);
+            background: linear-gradient(135deg, #E6F7F7, #CCEFEF);
+            color: var(--turq-700);
+            box-shadow: 0 14px 36px rgba(0, 175, 175, .3);
+        }
+
+        .kid-icon svg {
+            width: 40px;
+            height: 40px
+        }
+
+        .kid-card h3 {
+            font-size: 1.2rem;
+            color: var(--ink);
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .kid-card p {
+            font-size: .95rem;
+            color: var(--ink-soft);
+            line-height: 1.95;
+            margin: 0;
+        }
+
+        .annual-box {
+            margin-top: 48px;
+            padding: 40px 44px;
+            background: linear-gradient(135deg, var(--turq-600), var(--lapis-700));
+            border-radius: var(--radius-lg);
+            color: #fff;
+            box-shadow: 0 24px 64px rgba(30, 58, 138, .3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .annual-box::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(244, 215, 126, .3), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .annual-box>* {
+            position: relative;
+            z-index: 1
+        }
+
+        .annual-box p {
+            font-size: 1.02rem;
+            line-height: 2.05;
+            color: rgba(255, 255, 255, .94);
+            margin: 0;
+        }
+
+        .annual-box strong {
+            color: #F4D77E;
+            font-weight: 700
+        }
+
+        /* ================================================================
+   15. PAIN POINTS
+   ================================================================ */
+        .section-pain {
+            background: #fff
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .pain-item {
+            display: flex;
+            gap: 16px;
+            padding: 24px 26px;
+            background: var(--cream);
+            border-radius: var(--radius);
+            border-right: 4px solid var(--turq-400);
+            transition: all .35s var(--ease);
+            align-items: flex-start;
+        }
+
+        .pain-item:hover {
+            background: var(--turq-50);
+            border-right-color: var(--gold-500);
+            transform: translateX(-6px);
+        }
+
+        .pain-bullet {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--turq-500);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            margin-top: 2px;
+        }
+
+        .pain-bullet svg {
+            width: 15px;
+            height: 15px
+        }
+
+        .pain-item p {
+            font-size: .98rem;
+            color: var(--ink);
+            line-height: 1.9;
+            margin: 0;
+        }
+
+        .pain-result {
+            margin-top: 48px;
+            padding: 36px 40px;
+            background: linear-gradient(135deg, rgba(0, 175, 175, .08), rgba(30, 58, 138, .06));
+            border: 1px solid var(--turq-200);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+
+        .pain-result p {
+            font-family: 'Nahid', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.95;
+            margin: 0;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .pain-result strong {
+            color: var(--turq-700)
+        }
+
+        /* ================================================================
+   16. TECHNICAL SECTION
+   ================================================================ */
+        .section-tech {
+            background: var(--grad-hero);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-tech::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Cg fill='none' stroke='%2300AFAF' stroke-width='.5' opacity='.1'%3E%3Crect x='0' y='0' width='50' height='50'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .section-tech .container {
+            position: relative;
+            z-index: 2
+        }
+
+        .section-tech .section-title {
+            color: #fff
+        }
+
+        .section-tech .section-title .accent {
+            background: linear-gradient(135deg, #F4D77E, #D4AF37, #F4D77E);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+            margin-bottom: 56px;
+        }
+
+        .tech-card {
+            display: flex;
+            gap: 20px;
+            padding: 28px;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(244, 215, 126, .15);
+            border-radius: var(--radius-lg);
+            transition: all .35s var(--ease);
+            align-items: flex-start;
+        }
+
+        .tech-card:hover {
+            background: rgba(244, 215, 126, .08);
+            border-color: rgba(244, 215, 126, .4);
+            transform: translateY(-4px);
+        }
+
+        .tech-icon {
+            flex-shrink: 0;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(0, 175, 175, .25), rgba(244, 215, 126, .2));
+            border: 1px solid rgba(244, 215, 126, .3);
+            display: grid;
+            place-items: center;
+            color: #F4D77E;
+            transition: all .4s var(--ease);
+        }
+
+        .tech-card:hover .tech-icon {
+            transform: rotate(-8deg);
+            background: var(--grad-gold);
+            color: #0A152F;
+        }
+
+        .tech-icon svg {
+            width: 26px;
+            height: 26px
+        }
+
+        .tech-card h3 {
+            font-size: 1.1rem;
+            color: #F4D77E;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .tech-card p {
+            font-size: .94rem;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, .82);
+            margin: 0;
+        }
+
+        .tech-card p strong {
+            color: #fff;
+            font-weight: 700
+        }
+
+        /* ================================================================
+   17. ROADMAP
+   ================================================================ */
+        .roadmap-box {
+            padding: 44px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(244, 215, 126, .2);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+        }
+
+        .roadmap-intro {
+            font-size: 1.02rem;
+            line-height: 2.05;
+            color: rgba(255, 255, 255, .88);
+            margin-bottom: 36px;
+        }
+
+        .roadmap-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            position: relative;
+        }
+
+        .roadmap-steps::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            right: 12%;
+            left: 12%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #F4D77E, #00AFAF, transparent);
+            opacity: .5;
+            z-index: 0;
+        }
+
+        .roadmap-step {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .roadmap-step-num {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--grad-gold);
+            color: #0A152F;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 16px;
+            font-family: 'Nahid', serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 24px rgba(212, 175, 55, .5);
+            border: 3px solid rgba(10, 21, 47, .8);
+        }
+
+        .roadmap-step h4 {
+            font-size: .98rem;
+            color: #F4D77E;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .roadmap-step p {
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .75);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .roadmap-note {
+            margin-top: 32px;
+            padding: 20px 24px;
+            background: rgba(0, 175, 175, .1);
+            border-right: 3px solid #00AFAF;
+            border-radius: 10px;
+            font-size: .94rem;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, .88);
+        }
+
+        .roadmap-note strong {
+            color: #F4D77E
+        }
+
+        /* ================================================================
+   18. WHY NOW
+   ================================================================ */
+        .section-why {
+            background: var(--cream)
+        }
+
+        .why-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .why-stat {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .why-stat-card {
+            padding: 32px 28px;
+            background: #fff;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--line);
+            text-align: center;
+            transition: all .35s var(--ease);
+        }
+
+        .why-stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--gold-300);
+        }
+
+        .why-stat-num {
+            font-family: 'Nahid', serif;
+            font-size: 2.6rem;
+            font-weight: 900;
+            background: var(--grad-gold);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            letter-spacing: -1.5px;
+        }
+
+        .why-stat-label {
+            font-size: .9rem;
+            color: var(--ink-soft);
+            line-height: 1.7;
+        }
+
+        .why-text p {
+            font-size: 1.05rem;
+            line-height: 2.15;
+            color: var(--ink-soft);
+            margin-bottom: 1.2rem;
+        }
+
+        .why-text p strong {
+            color: var(--turq-700);
+            font-weight: 700
+        }
+
+        .why-distinction {
+            margin-top: 24px;
+            padding: 32px 36px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, .08), rgba(0, 175, 175, .06));
+            border-right: 4px solid var(--gold-400);
+            border-radius: var(--radius);
+        }
+
+        .why-distinction p {
+            font-size: 1rem;
+            line-height: 2;
+            color: var(--ink);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* ================================================================
+   19. FINAL CTA
+   ================================================================ */
+        .section-final {
+            background: var(--grad-hero);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            padding: 110px 0;
+        }
+
+        .section-final::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 30% 30%, rgba(0, 175, 175, .2), transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(212, 175, 55, .18), transparent 50%);
+            animation: bgShift 15s ease-in-out infinite alternate;
+        }
+
+        .section-final::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23F4D77E' stroke-width='.6' opacity='.12'%3E%3Cpath d='M40 0 L80 40 L40 80 L0 40 Z'/%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3C/g%3E%3C/svg%3E");
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+        }
+
+        .final-inner {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .final-text h2 {
+            font-size: clamp(1.8rem, 3.6vw, 2.7rem);
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.3;
+            letter-spacing: -1px;
+        }
+
+        .final-text h2 .accent {
+            background: linear-gradient(135deg, #F4D77E, #D4AF37, #F4D77E);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+
+        .final-text p {
+            font-size: 1.02rem;
+            line-height: 2.1;
+            color: rgba(255, 255, 255, .85);
+            margin-bottom: 16px;
+        }
+
+        .final-text p strong {
+            color: #F4D77E;
+            font-weight: 700
+        }
+
+        .final-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .final-image {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/10;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow:
+                0 0 0 1px rgba(244, 215, 126, .3),
+                0 30px 80px rgba(0, 0, 0, .55),
+                0 0 100px rgba(0, 175, 175, .2);
+            animation: floatY 7s ease-in-out infinite;
+        }
+
+        .final-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .final-image .final-fallback {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            background: linear-gradient(135deg, rgba(30, 58, 138, .6), rgba(0, 175, 175, .4));
+            color: #F4D77E;
+            text-align: center;
+            padding: 32px;
+            font-family: 'Nahid', serif;
+        }
+
+        .final-fallback svg {
+            width: 80px;
+            height: 80px;
+            opacity: .8
+        }
+
+        .final-fallback span {
+            font-size: .95rem;
+            opacity: .8;
+            font-family: 'Noto Naskh Arabic', serif
+        }
+
+        /* ================================================================
+   20. SOURCES
+   ================================================================ */
+        .section-sources {
+            background: #fff;
+            padding: 64px 0
+        }
+
+        .sources-list {
+            list-style: none;
+            display: grid;
+            gap: 14px;
+            margin-top: 32px;
+            max-width: 900px;
+        }
+
+        .sources-list li {
+            display: flex;
+            gap: 16px;
+            padding: 18px 22px;
+            background: var(--cream);
+            border-radius: 12px;
+            font-size: .94rem;
+            line-height: 1.85;
+            color: var(--ink-soft);
+            border-right: 3px solid var(--turq-300);
+            transition: all .3s var(--ease);
+        }
+
+        .sources-list li:hover {
+            background: var(--turq-50);
+            border-right-color: var(--gold-400);
+            transform: translateX(-4px);
+        }
+
+        .sources-list li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold-500);
+            margin-top: 11px;
+        }
+
+        /* ================================================================
+   21. FOOTER
+   ================================================================ */
+        .footer {
+            background: #050B1A;
+            color: rgba(255, 255, 255, .75);
+            padding: 64px 0 32px;
+            border-top: 1px solid rgba(244, 215, 126, .15);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #F4D77E, transparent);
+            opacity: .6;
+        }
+
+        .footer-inner {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand .brand {
+            margin-bottom: 16px;
+            font-size: 1.4rem;
+        }
+
+        .footer-brand p {
+            font-size: .92rem;
+            line-height: 1.95;
+            color: rgba(255, 255, 255, .6);
+            max-width: 340px;
+        }
+
+        .footer-col h4 {
+            color: #F4D77E;
+            font-size: .95rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: .2px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col a {
+            font-size: .9rem;
+            color: rgba(255, 255, 255, .7);
+            transition: color .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-col a:hover {
+            color: #F4D77E
+        }
+
+        .footer-col a::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(244, 215, 126, .5);
+        }
+
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .5);
+        }
+
+        .footer-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-tag strong {
+            color: #F4D77E;
+            font-weight: 700
+        }
+
+        .timzo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(244, 215, 126, .1);
+            border: 1px solid rgba(244, 215, 126, .25);
+            border-radius: 99px;
+            color: #F4D77E;
+            font-size: .85rem;
+            font-weight: 600;
+            transition: all .3s var(--ease);
+        }
+
+        .timzo-badge:hover {
+            background: rgba(244, 215, 126, .18);
+            border-color: rgba(244, 215, 126, .5);
+            transform: translateY(-2px);
+        }
+
+        .timzo-badge svg {
+            width: 14px;
+            height: 14px
+        }
+
+        /* ================================================================
+   22. KEYFRAMES
+   ================================================================ */
+        @keyframes bgShift {
+            0% {
+                transform: scale(1) rotate(0deg)
+            }
+
+            100% {
+                transform: scale(1.1) rotate(3deg)
+            }
+        }
+
+        @keyframes floatY {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-14px)
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 0% center
+            }
+
+            100% {
+                background-position: 200% center
+            }
+        }
+
+        @keyframes fadeInDown {
+
+            0%,
+            100% {
+                opacity: .4;
+                transform: translateX(-50%) translateY(0)
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(6px)
+            }
+        }
+
+        @keyframes borderShift {
+            0% {
+                background-position: 0% 50%
+            }
+
+            100% {
+                background-position: 300% 50%
+            }
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 10px 32px rgba(212, 175, 55, .45)
+            }
+
+            50% {
+                box-shadow: 0 10px 50px rgba(212, 175, 55, .75)
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        /* ================================================================
+   23. RESPONSIVE
+   ================================================================ */
+        @media (max-width:1024px) {
+
+            .hero-inner,
+            .what-grid,
+            .pay-intro,
+            .final-inner {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+                margin: 0 auto
+            }
+
+            .hero-meta,
+            .hero-actions {
+                justify-content: center
+            }
+
+            .hero-preview {
+                max-width: 420px;
+                margin: 0 auto
+            }
+
+            .intro-grid {
+                grid-template-columns: 1fr
+            }
+
+            .design-grid,
+            .toolbox-grid,
+            .comm-split,
+            .pain-grid,
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kids-grid {
+                grid-template-columns: 1fr
+            }
+
+            .roadmap-steps {
+                grid-template-columns: 1fr;
+                gap: 32px
+            }
+
+            .roadmap-steps::before {
+                display: none
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px
+            }
+
+            .float-badge.b1,
+            .float-badge.b2,
+            .float-badge.b3 {
+                display: none
+            }
+
+            .encourage-box .examples {
+                grid-template-columns: 1fr
+            }
+
+            .why-stat {
+                grid-template-columns: 1fr
+            }
+        }
+
+        @media (max-width:768px) {
+            body {
+                font-size: 16px
+            }
+
+            .section {
+                padding: 64px 0
+            }
+
+            .container {
+                padding: 0 20px
+            }
+
+            .nav-links {
+                display: none
+            }
+
+            .menu-toggle {
+                display: flex
+            }
+
+            .nav-links.open {
+                display: flex;
+                position: absolute;
+                top: var(--nav-h);
+                right: 0;
+                left: 0;
+                flex-direction: column;
+                padding: 16px 20px 20px;
+                background: rgba(10, 21, 47, .98);
+                backdrop-filter: blur(20px);
+                gap: 4px;
+                border-bottom: 1px solid rgba(244, 215, 126, .2);
+            }
+
+            .nav-links.open a {
+                padding: 12px 16px;
+                font-size: 1rem;
+                text-align: right
+            }
+
+            .pay-steps {
+                grid-template-columns: 1fr;
+                gap: 28px
+            }
+
+            .pay-steps::before {
+                display: none
+            }
+
+            .hero {
+                padding: 56px 0 72px
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 8vw, 2.8rem)
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr
+            }
+
+            .section-lead {
+                font-size: 1rem
+            }
+
+            .design-quote,
+            .annual-box,
+            .encourage-box,
+            .roadmap-box {
+                padding: 28px 22px;
+            }
+
+            .float-badge {
+                font-size: .75rem;
+                padding: 8px 12px
+            }
+
+            .section-title {
+                letter-spacing: -.5px
+            }
+        }
+
+        @media (max-width:480px) {
+            .container {
+                padding: 0 16px
+            }
+
+            .hero-title {
+                font-size: 1.9rem;
+                letter-spacing: -1px
+            }
+
+            .btn {
+                padding: 12px 22px;
+                font-size: .9rem;
+                width: 100%;
+                justify-content: center
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                width: 100%
+            }
+
+            .chip {
+                font-size: .78rem;
+                padding: 7px 12px
+            }
+
+            .point-card {
+                padding: 28px 22px
+            }
+
+            .design-card {
+                padding: 26px 22px
+            }
+
+            .tool-card {
+                padding: 28px 22px
+            }
+
+            .comm-card {
+                padding: 32px 24px
+            }
+
+            .kid-card {
+                padding: 28px 22px
+            }
+
+            .tech-card {
+                padding: 22px
+            }
+
+            .pain-item {
+                padding: 18px 20px
+            }
+
+            .section-title {
+                font-size: 1.6rem
+            }
+        }
+
+        /* ================================================================
+   24. ACCESSIBILITY
+   ================================================================ */
+        @media (prefers-reduced-motion:reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--gold-400);
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SCROLL PROGRESS -->
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <!-- ============ NAVBAR ============ -->
+    <header class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="#top" class="brand" aria-label="تیمزو — بازگشت به بالا">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3 L21 9 V19 A1 1 0 0 1 20 20 H4 A1 1 0 0 1 3 19 V9 Z" />
+                        <path d="M9 20 V14 A3 3 0 0 1 15 14 V20" />
+                    </svg>
+                </span>
+                <span>تیمزو <small>Timzo</small></span>
+            </a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="منوی موبایل" aria-expanded="false">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round">
+                    <line x1="4" y1="6" x2="20" y2="6" />
+                    <line x1="4" y1="12" x2="20" y2="12" />
+                    <line x1="4" y1="18" x2="20" y2="18" />
+                </svg>
+            </button>
+
+            <nav aria-label="ناوبری اصلی">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#intro">معرفی</a></li>
+                    <li><a href="#what">چیست؟</a></li>
+                    <li><a href="#design">ظاهر</a></li>
+                    <li><a href="#pay">پرداخت</a></li>
+                    <li><a href="#kids">کودکان</a></li>
+                    <li><a href="#roadmap">نقشه راه</a></li>
+                    <li><a href="#final" class="nav-cta">درخواست ساخت</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+        <div class="container">
+            <div class="hero-inner">
+
+                <div class="hero-content">
+                    <div class="eyebrow light reveal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 6v6l4 2" />
+                        </svg>
+                        پیشنهاد ساخت اپلیکیشن · تیمزو
+                    </div>
+
+                    <h1 class="hero-title reveal reveal-delay-1">
+                        <span class="line-1">مسجد آبادی</span>
+                        <span class="line-2">۲۴ ساعته در جیب اهالی</span>
+                    </h1>
+
+                    <p class="hero-sub reveal reveal-delay-2">
+                        اپلیکیشنی برای مسجد روستا که <strong>کمک مالی، نذورات، خبرها، همیاری و دنیای بچه‌ها</strong> را
+                        یک‌جا جمع می‌کند؛ مسجدی که هر لحظه، هر جا، همراه اهالی است.
+                    </p>
+
+                    <div class="hero-meta reveal reveal-delay-3">
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                                <path d="M19 5v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5" />
+                                <path d="M9 3h6v4H9z" />
+                            </svg>
+                            پرداخت مستقیم بانکی
+                        </span>
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                                <path d="M12 1v22" />
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg>
+                            نذر نقدی و غیرنقدی
+                        </span>
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                                <line x1="12" y1="19" x2="12" y2="23" />
+                            </svg>
+                            وویس‌محور و ساده
+                        </span>
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                                <path d="M12 2l3 7h7l-5.5 4.5 2 7L12 16l-6.5 4.5 2-7L2 9h7z" />
+                            </svg>
+                            بازی قرآنی کودکان
+                        </span>
+                    </div>
+
+                    <div class="hero-actions reveal reveal-delay-4">
+                        <a href="#final" class="btn btn-primary">
+                            درخواست ساخت
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                                <path d="M19 12H5" />
+                                <path d="M12 19l-7-7 7-7" />
+                            </svg>
+                        </a>
+                        <a href="#intro" class="btn btn-ghost">
+                            مطالعه سند
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                                <path d="M12 5v14" />
+                                <path d="M19 12l-7 7-7-7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-preview reveal reveal-delay-2">
+                    <div class="float-badge b1">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                            <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                        <span>نذر ثبت شد</span>
+                    </div>
+                    <div class="float-badge b2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
+                        <span>پیام محرمانه</span>
+                    </div>
+                    <div class="float-badge b3">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                        </svg>
+                        <span>وویس از حاج‌آقا</span>
+                    </div>
+
+                    <div class="preview-frame">
+                        <div class="preview-fallback" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                                <path d="M12 3 L21 9 V19 A1 1 0 0 1 20 20 H4 A1 1 0 0 1 3 19 V9 Z" />
+                                <path d="M9 20 V14 A3 3 0 0 1 15 14 V20" />
+                            </svg>
+                            <span>پیش‌نمایش اپلیکیشن<br>data/app-preview.jpg</span>
+                        </div>
+                        <img src="data/app-preview.jpg" alt="پیش‌نمایش اپلیکیشن مسجد آبادی" loading="eager"
+                            onerror="this.style.display='none'">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="scroll-hint" aria-hidden="true">
+            <span>اسکرول کنید</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M12 5v14" />
+                <path d="M19 12l-7 7-7-7" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- ============ INTRO — 3 نکته روشن ============ -->
+    <section class="section" id="intro">
+        <div class="container">
+            <div class="eyebrow reveal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4" />
+                    <path d="M12 8h.01" />
+                </svg>
+                چرا این سند را تا آخر بخوانید
+            </div>
+
+            <h2 class="section-title reveal reveal-delay-1">
+                این پیشنهاد برای بانی‌ای نوشته شده که می‌خواهد بداند<br>
+                <span class="accent">چه چیزی می‌سازد، چه نیازی را برطرف می‌کند و چرا ارزش پشتیبانی دارد.</span>
+            </h2>
+
+            <p class="section-lead reveal reveal-delay-2">
+                مسجد آبادی یک اپلیکیشن موبایل برای مسجد روستاست که کمک مالی، نذورات، خبرها، همیاری و دنیای بچه‌ها را
+                یک‌جا جمع می‌کند؛ مسجدی ۲۴ ساعته که در جیب اهالی است.
+            </p>
+
+            <div class="intro-grid">
+                <div class="point-card reveal reveal-delay-1">
+                    <div class="point-num">۱</div>
+                    <p>ایده‌ی مسجد در بستر دیجیتال در کشور تجربه شده است.</p>
+                </div>
+                <div class="point-card reveal reveal-delay-2">
+                    <div class="point-num">۲</div>
+                    <p>زیرساخت‌هایی مانند درگاه بانکی را می‌توان از سرویس‌های موجود گرفت و هزینه را صرف طراحی اختصاصی و
+                        تجربه‌ی ساده‌ی کاربران کرد.</p>
+                </div>
+                <div class="point-card reveal reveal-delay-3">
+                    <div class="point-num">۳</div>
+                    <p>دامنه‌ی کار در این سند مشخص است تا ساخت، مرحله‌به‌مرحله آزموده شود.</p>
+                </div>
+            </div>
+
+            <p class="section-lead reveal" style="margin-top:40px;font-size:1.05rem;line-height:2.1;max-width:100%;">
+                مسجد آبادی قرار است برای مسجد روستا طراحی شود: صدای حاج‌آقا، نذر محصول و کار، اعلام آمادگی یک‌لمسی، رسید
+                و گزارش روشن، ارتباط محرمانه و بازی‌های قرآنی برای کودکان.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============ WHAT IS IT ============ -->
+    <section class="section section-what" id="what">
+        <div class="container">
+            <div class="eyebrow reveal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <path d="M9 22V12h6v10" />
+                </svg>
+                این برنامه چیست؟
+            </div>
+
+            <h2 class="section-title reveal reveal-delay-1">
+                برای مسجد روستا <span class="accent">چه می‌کند؟</span>
+            </h2>
+
+            <div class="what-grid">
+                <div class="what-text reveal reveal-delay-2">
+                    <p>
+                        مسجد روستا فقط چند دقیقه‌ی نماز خواندن نیست؛ جایی است که بچه‌ها در حیاطش بزرگ می‌شوند، خبرهای
+                        خوب و بد محل اول آن پخش می‌شود و دست‌های مردم برای آبادانی‌اش بالا می‌رود. اما امروز بسیاری از
+                        اهالی سر کارند، بعضی‌ها در شهر ساکن شده‌اند و خیلی‌ها دلشان می‌خواهد کمک کنند ولی <span
+                            class="highlight">راهی ندارند</span>.
+                    </p>
+                    <p>
+                        اپلیکیشن <strong>«مسجد آبادی»</strong> یعنی همین مسجد، اما روی گوشی اهالی؛ مسجدی ۲۴ ساعته که در
+                        مزرعه، جاده، خانه‌ی مادربزرگ و دست نوجوان‌ها همراهشان است. هر کس از هر جا و به هر اندازه‌ای که
+                        می‌تواند، در آبادانی مسجد سهیم می‌شود؛ حاج‌آقا هم خبرها، کمک‌ها و نذورات را به‌جای دفترهای
+                        پراکنده <span class="highlight-gold">از یک گوشی مدیریت می‌کند</span>.
+                    </p>
+                    <p>
+                        خیلی ساده بگوییم: حاج‌آقا چیزی لازم دارد، در برنامه پیام یا وویس می‌گذارد و اهالی همان‌جا
+                        می‌بینند یا می‌شنوند. خبر نذری فردا، زمان کلاس، مراسم یا جلسه، دیگر به زنجیره‌ی «یکی به یکی
+                        بگوید» وابسته نیست. صندوق و نذورات نیز با تاریخ و مبلغ ثبت می‌شوند تا کمک‌ها و هزینه‌ها روشن‌تر
+                        باشند.
+                    </p>
+                    <p>
+                        این فقط یک دفترچه‌ی دیجیتال نیست؛ راهی است برای آنکه مسجد، با حفظ گرمای رابطه‌های روستا، در
+                        زندگی روزمره‌ی اهالی حاضر بماند. نمونه‌های ملی نشان می‌دهند که پیوند مسجد و ابزار دیجیتال تجربه
+                        شده است؛ جزئیات و حدود آمار در بخش مربوط توضیح داده می‌شود.
+                    </p>
+                </div>
+
+                <div class="five-pillars reveal reveal-delay-3">
+                    <div class="pillar">
+                        <div class="pillar-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                            </svg>
+                        </div>
+                        <div class="pillar-text">
+                            <strong>اطلاع‌رسانی زنده</strong>
+                            <span>خبرها و اعلان‌های مسجد، بی‌درنگ روی گوشی همه</span>
+                        </div>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                            </svg>
+                        </div>
+                        <div class="pillar-text">
+                            <strong>وویس و گفتگو</strong>
+                            <span>صدای حاج‌آقا، ساده‌تر از هر متنی</span>
+                        </div>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <rect x="2" y="5" width="20" height="14" rx="2" />
+                                <line x1="2" y1="10" x2="22" y2="10" />
+                            </svg>
+                        </div>
+                        <div class="pillar-text">
+                            <strong>صندوق و نذورات</strong>
+                            <span>ثبت شفاف کمک‌ها و هزینه‌ها با تاریخ و مبلغ</span>
+                        </div>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <path d="M12 2l3 7h7l-5.5 4.5 2 7L12 16l-6.5 4.5 2-7L2 9h7z" />
+                            </svg>
+                        </div>
+                        <div class="pillar-text">
+                            <strong>اعلان‌های آماده مناسبت‌ها</strong>
+                            <span>قالب‌های آماده برای شب‌های جمعه، محرم، رمضان</span>
+                        </div>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <path d="M12 2v4" />
+                                <path d="M4 8h16v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" />
+                                <circle cx="9" cy="14" r="1" />
+                                <circle cx="15" cy="14" r="1" />
+                            </svg>
+                        </div>
+                        <div class="pillar-text">
+                            <strong>دنیای بچه‌ها</strong>
+                            <span>بازی، آموزش قرآن و مسجد مجازی برای کودکان</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ DESIGN ============ -->
+    <section class="section section-design" id="design">
+        <div class="container">
+            <div class="eyebrow light reveal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="13.5" cy="6.5" r="2.5" />
+                    <circle cx="17.5" cy="10.5" r="2.5" />
+                    <circle cx="8.5" cy="7.5" r="2.5" />
+                    <circle cx="6.5" cy="12.5" r="2.5" />
+                    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" />
+                </svg>
+                ظاهر و کیفیت کار
+            </div>
+
+            <h2 class="section-title reveal reveal-delay-1">
+                محصولی که <span class="accent">افتخار کنیم</span> به اهالی نشانش بدهیم.
+            </h2>
+
+            <p class="section-lead reveal reveal-delay-2">
+                این برنامه قرار نیست یکی از آن برنامه‌های اداری خشک و بی‌روح باشد. قرار است از همان لحظه‌ی اول، آدم
+                احساس کند وارد فضایی تمیز، آرام و خوش‌ساخت شده است.
+            </p>
+
+            <div class="design-grid">
+                <div class="design-card reveal reveal-delay-1">
+                    <div class="design-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <circle cx="12" cy="12" r="10" />
+                            <circle cx="12" cy="12" r="4" />
+                        </svg>
+                    </div>
+                    <h3>رنگ‌ها</h3>
+                    <p>ترکیب فیروزه‌ای و لاجوردی با جزئیات طلایی؛ آرامش مسجد با جلوه‌ای امروزی و باوقار.</p>
+                </div>
+                <div class="design-card reveal reveal-delay-2">
+                    <div class="design-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <path d="M4 7V4h16v3" />
+                            <path d="M9 20h6" />
+                            <path d="M12 4v16" />
+                        </svg>
+                    </div>
+                    <h3>خوانایی</h3>
+                    <p>نوشته‌های درشت و روشن، دکمه‌های واضح و مسیرهای ساده تا پدربزرگ‌ها هم بدون سردرگمی کارشان را انجام
+                        دهند.</p>
+                </div>
+                <div class="design-card reveal reveal-delay-3">
+                    <div class="design-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 6v6l4 2" />
+                        </svg>
+                    </div>
+                    <h3>حرکت و بازخورد</h3>
+                    <p>انیمیشن‌های نرم و کوتاه که استفاده را زنده و دلنشین می‌کنند، نه شلوغ و خسته‌کننده.</p>
+                </div>
+                <div class="design-card reveal reveal-delay-4">
+                    <div class="design-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                        </svg>
+                    </div>
+                    <h3>حالت شب</h3>
+                    <p>نمایشگر در محیط کم‌نور با روشنایی ملایم‌تر و کنتراست مناسب، برای استفاده‌ی راحت‌تر.</p>
+                </div>
+            </div>
+
+            <div class="design-quote reveal">
+                <p>طراحی فقط «قشنگی» نیست؛ بخشی از اعتماد و ماندگاری است. برنامه‌ای که باز کردنش لذت‌بخش و کارکردنش آسان
+                    باشد، شانس بیشتری دارد که اهالی واقعاً هر روز از آن استفاده کنند.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PAYMENT ============ -->
+    <section class="section section-pay" id="pay">
+        <div class="container">
+            <div class="eyebrow gold reveal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="1" y="4" width="22" height="16" rx="2" />
+                    <line x1="1" y1="10" x2="23" y2="10" />
+                </svg>
+                کمک اینترنتی: پرداخت مستقیم
+            </div>
+
+            <h2 class="section-title reveal reveal-delay-1">
+                صندوق مسجد، <span class="accent">هفت روز هفته، ۲۴ ساعته</span> باز است.
+            </h2>
+
+            <div class="pay-intro">
+                <div class="reveal reveal-delay-2">
+                    <p style="font-size:1.05rem;line-height:2.1;color:var(--ink-soft);">
+                        یکی از مهم‌ترین بخش‌های برنامه این است که حاج‌آقا می‌تواند مستقیم یک درگاه پرداخت اینترنتی روی
+                        آن فعال کند؛ همان چیزی که آستان‌های بزرگ سال‌هاست با آن کار می‌کنند.
+                    </p>
+                    <p style="font-size:1.05rem;line-height:2.1;color:var(--ink-soft);">
+                        سامانه‌ی خیرات و نذور مسجد مقدس جمکران دقیقاً همین مسیر را رفته است: خیر نوع نذر را مشخص می‌کند،
+                        مبلغ را وارد می‌کند، به صفحه‌ی بانک هدایت می‌شود و پس از تأیید پرداخت از جانب بانک، فیش رسمی
+                        برایش صادر می‌شود. این مدل در بزرگ‌ترین آستانه‌ی کشور جواب داده؛ حالا همین توانایی، در جیب اهالی
+                        یک روستا.
+                    </p>
+                </div>
+
+                <div class="pay-steps reveal reveal-delay-3">
+                    <div class="pay-step">
+                        <div class="pay-step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <rect x="2" y="6" width="20" height="12" rx="2" />
+                                <path d="M6 12h.01" />
+                                <path d="M18 12h.01" />
+                            </svg>
+                        </div>
+                        <h4>مبلغ را وارد کن</h4>
+                        <p>هر مبلغی که می‌خواهی، هر جایی که هستی.</p>
+                    </div>
+                    <div class="pay-step">
+                        <div class="pay-step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <path d="M9 11l3 3L22 4" />
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                            </svg>
+                        </div>
+                        <h4>از کارت پرداخت کن</h4>
+                        <p>درگاه امن بانکی، بدون ثبت‌نام طولانی.</p>
+                    </div>
+                    <div class="pay-step">
+                        <div class="pay-step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="9" y1="15" x2="15" y2="15" />
+                            </svg>
+                        </div>
+                        <h4>رسید بگیر</h4>
+                        <p>فیش رسمی، همان لحظه صادر می‌شود.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pay-note reveal">
+                <p>
+                    <strong>اسمش را می‌خواهد بنویسد، می‌نویسد؛ نمی‌خواهد، هیچ.</strong> همان‌طور بی‌نام و با آسودگی خاطر
+                    کمک می‌کند. بلافاصله یک رسید دقیق صادر می‌شود و حساب هم شفاف می‌ماند؛ نه اسکناس گم می‌شود و نه حساب
+                    و کتاب جایی می‌ماند. یعنی کسی که عید به مسجد می‌آید همان‌جا کم می‌گذارد، و کسی که تا مسجد ده کیلومتر
+                    با او فاصله است، با دو انگشت روی گوشی‌اش سهیم می‌شود.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ NON-CASH ============ -->
+    <section class="section section-noncash" id="noncash">
+        <div class="container">
+            <div class="eyebrow reveal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+                نذورات غیرنقدی و فراخوان همیاری
+            </div>
+
+            <h2 class="section-title reveal reveal-delay-1">
+                در روستا همه پول نقد ندارند، <span class="accent">اما همه چیز دارند.</span>
+            </h2>
+
+            <p class="section-lead reveal reveal-delay-2">
+                یکی گندم انبارش دارد، یکی برنج، یکی میوه‌ی باغش، یکی سیمان و مصالح و یکی هم بازوی کارگر. این برنامه این
+                نذورات را هم درست مثل پول، مرتب و آبرومند جمع می‌کند.
+            </p>
+
+            <div class="toolbox-grid">
+                <div class="tool-card reveal reveal-delay-1">
+                    <div class="tool-num">۱</div>
+                    <h3>فراخوان یاری‌گری</h3>
+                    <p>حاج‌آقا با دو کلیک — یا با یک وویس یک‌دقیقه‌ای — فراخوان می‌گذارد.</p>
+                    <span class="example">
+                        «فردا صبح می‌خواهیم سقف خانه‌ی فلانی را کاهگل کنیم، سه جوان با بیل و فرغون بیایند»<br>
+                        <strong>مردم همان لحظه یک دکمه‌ی سبز بزرگ می‌زنند: «منم میام» یا «یا علی»</strong>
+                    </span>
+                    <p style="margin-top:14px;">حاج‌آقا در گوشی‌اش می‌بیند مثلاً ۱۵ نفر اعلام آمادگی کرده‌اند و کار را
+                        همان‌جا می‌چیند.</p>
+                </div>
+
+                <div class="tool-card reveal reveal-delay-2">
+                    <div class="tool-num">۲</div>
+                    <h3>نذر محصول</h3>
+                    <p>روستایی پول نقد ندارد، ولی گندم، سیب‌زمینی، گردو، شیر یا پشم گوسفند دارد.</p>
+                    <span class="example">
+                        طرف می‌زند: «۱۰ کیلو آرد نذر مسجد» یا «یک جعبه سیب برای مراسم شب جمعه»<br>
+                        <strong>خادم می‌رود تحویل می‌گیرد و در برنامه ثبت می‌شود.</strong>
+                    </span>
+                    <p style="margin-top:14px;">اهالی در برنامه ثبت می‌کنند: «من ۱۰ کیلو برنج نذر مسجد می‌کنم» یا «یک
+                        روز بنایی مسجد را رایگان انجام می‌دهم».</p>
+                </div>
+            </div>
+
+            <div class="encourage-box reveal reveal-delay-3">
+                <h3>لوح معرفت / گلچین آبادی</h3>
+                <p>بخش تشویق هم سر جای خودش است: حاج‌آقا بعد از هر نماز یا آخر هفته، عکس یک نفر را با یک جمله‌ی
+                    محبت‌آمیز می‌گذارد.</p>
+                <div class="examples">
+                    <span>«خدا قوت به مشهدی رضا بابت جارو کردن حیاط مسجد»</span>
+                    <span>«آفرین به علی‌آقا برای اذان گفتن اول وقت»</span>
+                </div>
+                <p style="margin-top:20px;margin-bottom:0;">
+                    همین دیده‌شدن و احترام، بین اهالی رقابت مثبت می‌سازد و جوان‌ها را به میدان می‌کشد. نتیجه؟ دیگر هیچ
+                    کمکی از دست نمی‌رود، هیچ‌کس رویش نمی‌شود حضوری بگوید، و پشت هر نذر یک رسید و یک اطمینان خاطر هست.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ ANNOUNCEMENTS + PRIVATE ============ -->
+    <section class="section section-comm" id="comm">
+        <div class="container">
+            <div class="eyebrow reveal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                </svg>
+                اطلاع‌رسانی زنده و پیام محرمانه
+            </div>
+
+            <h2 class="section-title reveal reveal-delay-1">
+                از یک <span class="accent">«تابلوی اعلانات»</span> تا یک <span class="accent">«مجلس خیر و
+                    کارگشایی»</span>
+            </h2>
+
+            <p class="section-lead reveal reveal-delay-2">
+                یکی از کاربردی‌ترین بخش‌های برنامه این است که خبرهای مسجد فوری و مرتب به دست همه می‌رسد، نه از راه «یکی
+                به یکی بگوید».
+            </p>
+
+            <div class="comm-split">
+                <div class="comm-card light reveal reveal-delay-1">
+                    <div class="comm-header">
+                        <div class="comm-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                            </svg>
+                        </div>
+                        <h3>اطلاع‌رسانی زنده</h3>
+                    </div>
+                    <p>حاج‌آقا یا خادم مسجد در برنامه اعلان می‌گذارد: «فردا می‌خواهیم مسجد را تمیز کنیم، بیایید» یا
+                        «جمعه فرش‌ها می‌آید، کمک می‌خواهیم».</p>
+                    <p>هر کسی که می‌تواند، همان‌جا دکمه‌ی «من هستم» را می‌زند و اعلام آمادگی می‌کند؛ حاج‌آقا هم دقیقاً
+                        می‌داند چند نفر می‌آیند و کار را چطور بچیند.</p>
+                    <ul class="comm-list">
+                        <li>خبر فوت اهالی</li>
+                        <li>نوبت آبیاری</li>
+                        <li>جشن و یادواره</li>
+                        <li>برنامه‌های مسجد</li>
+                    </ul>
+                    <div class="comm-footer">
+                        همه‌ی این خبرها بی‌درنگ روی گوشی همه می‌نشیند.
+                    </div>
+                </div>
+
+                <div class="comm-card dark reveal reveal-delay-2">
+                    <div class="comm-header">
+                        <div class="comm-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                        </div>
+                        <h3>پیام خصوصی به حاج‌آقا</h3>
+                    </div>
+                    <p>در محیط کوچک روستا، خجالت و حرف‌وحدیث زیاد است؛ خیلی‌ها رویشان نمی‌شود رو‌در‌رو مشکل یا
+                        دلخوری‌شان را بگویند. برنامه یک خط ارتباطی مستقیم و محرمانه برای خودِ حاج‌آقا باز می‌کند:</p>
+                    <ul class="comm-list">
+                        <li>حل کدورت بین دو فامیل یا همسایه، بدون اینکه کسی جز حاج‌آقا باخبر شود.</li>
+                        <li>گزارش محرمانه‌ی نیاز یک خانواده که صورتش را با سیلی سرخ نگه داشته است.</li>
+                        <li>استخاره و مشورت خانوادگی بدون اینکه کل ده از موضوع باخبر شود.</li>
+                    </ul>
+                    <div class="comm-footer">
+                        کافی است یک وویس یا یک متن کوتاه بفرستد؛ پیام فقط برای حاج‌آقا باز می‌شود و پاسخش هم همان‌جا
+                        می‌رسد.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ KIDS ============ -->
+    <section class="section section-kids" id="kids">
+        <div class="container">
+            <div class="eyebrow gold reveal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
+                    <path d="M18 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
+                    <path d="M12 4v16" />
+                    <path d="M4 8h16" />
+                </svg>
+                دنیای بچه‌ها: بازی، قرآن و لوح معرفت
+            </div>
+
+            <h2 class="section-title reveal reveal-delay-1">
+                بچه‌ها به‌جای آن‌که گوشی را دور از مسجد ببرند، <span class="accent">مسجد را به گوشی‌شان می‌آورند.</span>
+            </h2>
+
+            <p class="section-lead reveal reveal-delay-2">
+                بچه‌های امروز با بازی‌های موبایل بزرگ شده‌اند؛ اگر فقط یک صفحه‌ی خشک بگذاریم که «آیه‌ی امروز را بخوان»،
+                برنمی‌گردند. اما اگر یادگرفتن قرآن شبیه بازی جذاب شود، خودشان هر روز برمی‌گردند.
+            </p>
+
+            <div class="kids-grid">
+                <div class="kid-card reveal reveal-delay-1">
+                    <div class="kid-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2

@@ -1,43 +1,32 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "com.example.app"
-    compileSdk = 34
+    namespace = "ir.timzo.photoshop.twa"
+    compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.app"
+        applicationId = "ir.timzo.photoshop.twa"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 35
+        versionCode = 2
+        versionName = "1.0.1"
     }
 
     buildFeatures {
         compose = true
     }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
 
 dependencies {
-    val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
+    val composeBom = platform("androidx.compose:compose-bom:2024.10.01")
     implementation(composeBom)
-    implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.activity:activity-compose:1.9.0")
-    implementation("com.google.androidbrowserhelper:androidbrowserhelper:2.5.0")
-    implementation("androidx.browser:browser:1.8.0")
-
+    implementation("androidx.activity:activity-compose:1.9.3")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 }

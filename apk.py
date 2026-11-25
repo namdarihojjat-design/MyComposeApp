@@ -43,3 +43,6 @@ if os.path.exists(manifest_path):
             print("[❌] دسترسی INTERNET در Manifest گم شده است!")
 
 print("\n=== پایان بررسی ===")
+
+
+
