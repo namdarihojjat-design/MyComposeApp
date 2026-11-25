@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.enableEdgeToEdge
@@ -36,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
@@ -53,7 +55,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            // Dark luxury tech theme with Gold accents
             val darkTheme = darkColorScheme(
                 primary = Color(0xFFFFD54F),
                 onPrimary = Color(0xFF1E1E24),
@@ -80,12 +81,40 @@ private enum class AppShape(val code: String, val title: String, val desc: Strin
     Portrait("portrait", "عمودی", "1024x1536")
 }
 
+// ۲۰ حکمت برگزیده از نهج‌البلاغه امیرالمؤمنین علی (ع)
+private val nahjAlBalaghaWisdoms = listOf(
+    Pair("قيمَةُ كُلِّ امْرِئٍ مَا يُحْسِنُهُ", "ارزش هر انسانی به اندازه چیزی است که آن را نیکو انجام می‌دهد (حکمت ۸۱)."),
+    Pair("النَّاسُ أَعْدَاءُ مَا جَهِلُوا", "مردم دشمن آن چیزی هستند که نمی‌دانند (حکمت ۱۷۲)."),
+    Pair("الْعِلْمُ وِرَاثَةٌ كَرِيمَةٌ", "علم میراثی ارزشمند و گرانبهاست (حکمت ۴)."),
+    Pair("تَكَلَّمُوا تُعْرَفُوا، فَإِنَّ الْمَرْءَ مَخْفُوءٌ تَحْتَ لِسَانِهِ", "سخن بگویید تا شناخته شوید، زیرا انسان در زیر زبان خود پنهان است (حکمت ۳۹۲)."),
+    Pair("اقْدِرْ عَلَى نَفْسِكَ بِمَا شِئْتَ، يَتَّضِحْ لَكَ مِقْدَارُكَ", "بر نفس خود مسلط باش تا انداز و مقدارت بر تو آشکار شود."),
+    Pair("صَدْرُ الْعَاقِلِ صُنْدُوقُ سِرِّهِ", "سینه خردورز صندوقچه راز اوست (حکمت ۶)."),
+    Pair("الْبَشَاشَةُ حِبَالَةُ الْمَوَدَّةِ", "روی‌گشاده و خنده‌رویی، دام محبت است (حکمت ۱۴۲)."),
+    Pair("الْمَفْرُوطُ لَهُ إِلى الْحَقِّ سَرِيعٌ", "کسی که به سوی حق پیشی گیرد، نجات خواهد یافت."),
+    Pair("الْحِكْمَةُ ضَالَّةُ الْمُؤْمِنِ، فَخُذِ الْحِكْمَةَ وَلَوْ مِنْ أَهْلِ النِّفَاقِ", "حکمت گمشده مؤمن است، آن را فراگیر حتی اگر از اهل نفاق باشد."),
+    Pair("مَنْ كَرُمَتْ عَلَيْهِ نَفْسُهُ هَانَتْ عَلَيْهِ شَهَوَاتُهُ", "کسی که نفسش نزد او گرامی باشد، شهواتش در نظرش خوار می‌گردند (حکمت ۴۴۹)."),
+    Pair("أَعْجَزُ النَّاسِ مَنْ عَجَزَ عَنِ اكْتِسَابِ الْإِخْوَانِ", "ناتوان‌ترین مردم کسی است که از به دست آوردن دوستان ناتوان باشد (حکمت ۱۲)."),
+    Pair("الرِّزْقُ رِزْقَانِ: رِزْقٌ تَطْلُبُهُ وَرِزْقٌ يَطْلُبُكَ", "روزی دو گونه است: روزی‌ای که تو آن را می‌طلبی و روزی‌ای که او تو را می‌طلبد (حکمت ۳۷۹)."),
+    Pair("الصَّبْرُ صَبْرَانِ: صَبْرٌ عَلَى مَا تَكْرَهُ، وَصَبْرٌ عَمَّا تُحِبُّ", "صبر دو گونه است: صبر بر آنچه ناخوش می‌داری، و صبر بر آنچه دوست می‌داری (حکمت ۵۵)."),
+    Pair("الْغِنَى الْأَكْبَرُ الْيَأْسُ عَمَّا فِي أَيْدِي النَّاسِ", "بزرگ‌ترین توانگری، ناامیدی از آنچه در دست مردم است (حکمت ۳۴۲)."),
+    Pair("رَحِمَ اللَّهُ امْرَأً عَرَفَ قَدْرَ ولم يَتَعَدَّ طَوْرَهُ", "خداوند رحمت کند کسی را که قدر خود را شناخت و از حد خود فراتر نرفت."),
+    Pair("الزُّهْدُ كُلُّهُ بَيْنَ كَلِمَتَيْنِ مِنَ الْقُرْآنِ", "تمام زهد در دو کلمه از قرآن خلاصه شده است: (تا بر آنچه از دست شما رفته اندوهگین نشوید و به آنچه به شما داده شادمانی نکنید) (حکمت ۴۳۹)."),
+    Pair("مَنْ ضَيَّعَهُ الْقَرِيبُ أُتُوحَ لَهُ الْبَعِیدُ", "کسی که نزدیکانش او را واگذارند، بیگانگان به یاری‌اش شتابند."),
+    Pair("ذِلَّةُ الظَّالِمِ قَرِيبَةٌ وَنَصْرُ الْمَظْلُومِ سَرِيعٌ", "خواری ستمگر نزدیک و یاری مظلوم سریع است."),
+    Pair("الْمُؤْمِنُ بِشْرُهُ فِي وَجْهِهِ وَحُزْنُهُ فِي قَلْبِهِ", "مؤمن شادی‌اش در چهره اوست و اندوهش در دل او (حکمت ۳۳۳)."),
+    Pair("إِذَا تَمَّ الْعَقْلُ نَقَصَ الْكَلامُ", "چون خرد کامل شود، سخن گفتن کم گردد (حکمت ۷۱).")
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StudioMainScreen() {
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
+
+    // دیالوگ خوش‌آمدگویی و حکمت‌های امیرالمؤمنین (ع)
+    var showWisdomDialog by remember { mutableStateOf(true) }
+    var currentWisdomIndex by remember { mutableStateOf(0) }
 
     val client = remember {
         OkHttpClient.Builder()
@@ -128,6 +157,90 @@ fun StudioMainScreen() {
         }
     }
 
+    // Modal / Dialog حکمت‌های امیرالمؤمنین (ع)
+    if (showWisdomDialog) {
+        val currentWisdom = nahjAlBalaghaWisdoms[currentWisdomIndex]
+        Dialog(onDismissRequest = { showWisdomDialog = false }) {
+            Card(
+                shape = RoundedCornerShape(28.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(22.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(10.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFFFFD54F))
+                        )
+                        Text(
+                            text = "حکمت‌های امیرالمؤمنین علی (ع)",
+                            color = Color(0xFFFFD54F),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp
+                        )
+                    }
+
+                    // متن عربی حکمت
+                    Text(
+                        text = "«${currentWisdom.first}»",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 15.sp,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 24.sp
+                    )
+
+                    // ترجمه فارسی
+                    Text(
+                        text = currentWisdom.second,
+                        color = Color.White.copy(alpha = 0.85f),
+                        fontSize = 13.sp,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 20.sp
+                    )
+
+                    Spacer(Modifier.height(4.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        OutlinedButton(
+                            onClick = {
+                                currentWisdomIndex = (currentWisdomIndex + 1) % nahjAlBalaghaWisdoms.size
+                            },
+                            modifier = Modifier.weight(1f),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFFFFD54F))
+                        ) {
+                            Text("حکمت بعدی (${currentWisdomIndex + 1}/20)")
+                        }
+
+                        Button(
+                            onClick = { showWisdomDialog = false },
+                            modifier = Modifier.weight(1f),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFD54F))
+                        ) {
+                            Text("ورود به استودیو", color = Color(0xFF1E1E24), fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -138,11 +251,13 @@ fun StudioMainScreen() {
         verticalArrangement = Arrangement.spacedBy(18.dp)
     ) {
 
-        // 🕌 هدر معنوی، دعایی و شیک
+        // هدر معنوی، دعایی و شیک
         Card(
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { showWisdomDialog = true }
         ) {
             Box(
                 modifier = Modifier
@@ -165,7 +280,7 @@ fun StudioMainScreen() {
                                 .background(Color(0xFFFFD54F))
                         )
                         Text(
-                            text = "یا علی مدد • استودیو هوشمند تیمزو",
+                            text = "یا علی مدد • استودیو هوشمند تیمزو (امیرالمؤمنین)",
                             color = Color(0xFFFFD54F),
                             fontWeight = FontWeight.Bold,
                             fontSize = 15.sp
@@ -173,7 +288,7 @@ fun StudioMainScreen() {
                     }
                     Spacer(Modifier.height(6.dp))
                     Text(
-                        text = "«السلام علیک یا امیرالمؤمنین و یا اباعبدالله الحسین»\nاللهم عجّل لولیک الفرج و اقضِ حوائجنا بالقرآن.",
+                        text = "«السلام علیک یا امیرالمؤمنین و یا اباعبدالله الحسین»\nاللهم عجل لولیک الفرج (برای مشاهده حکمت‌های علوی، اینجا کلیک کنید).",
                         color = Color.White.copy(alpha = 0.85f),
                         fontSize = 12.sp,
                         lineHeight = 18.sp
@@ -182,7 +297,7 @@ fun StudioMainScreen() {
             }
         }
 
-        // 🎨 انتخاب مد کاربری (تولید / ویرایش)
+        // انتخاب مد کاری (تولید / ویرایش)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -223,7 +338,7 @@ fun StudioMainScreen() {
             }
         }
 
-        // 📷 بخش آپلود در صورت انتخاب ویرایش
+        // بخش آپلود در صورت انتخاب ویرایش
         AnimatedVisibility(visible = isEditMode) {
             Card(
                 shape = RoundedCornerShape(20.dp),
@@ -244,7 +359,7 @@ fun StudioMainScreen() {
             }
         }
 
-        // ✍️ بخش پرامپت (متن ایده)
+        // بخش پرامپت (متن ایده)
         Card(
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -296,7 +411,7 @@ fun StudioMainScreen() {
                     }
                 }
 
-                // سوییچ پس‌زمینه شفاف
+                // سویئیچ پس‌زمینه شفاف
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -315,7 +430,7 @@ fun StudioMainScreen() {
             }
         }
 
-        // 🚀 دکمه اجرای اصلی
+        // دکمه اجرای اصلی
         Button(
             onClick = {
                 if (prompt.isBlank()) {
@@ -402,7 +517,7 @@ fun StudioMainScreen() {
             }
         }
 
-        // ℹ️ متن وضعیت
+        // متن وضعیت
         Text(
             text = statusText,
             color = if (statusText.startsWith("خطا")) Color(0xFFFF6B6B) else Color.LightGray,
@@ -411,7 +526,7 @@ fun StudioMainScreen() {
             modifier = Modifier.fillMaxWidth()
         )
 
-        // 🖼️ کارت نمایش خروجی نهایی
+        // کارت نمایش خروجی نهایی
         outputBitmap?.let { bmp ->
             Card(
                 shape = RoundedCornerShape(20.dp),
